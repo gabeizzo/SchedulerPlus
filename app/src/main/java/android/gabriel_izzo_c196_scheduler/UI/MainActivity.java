@@ -3,6 +3,8 @@ package android.gabriel_izzo_c196_scheduler.UI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.gabriel_izzo_c196_scheduler.Database.Repository;
+import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.View;
@@ -18,5 +20,8 @@ public class MainActivity extends AppCompatActivity {
     public void enterApp(View view) {
         Intent intent=new Intent(MainActivity.this, TermList.class);
         startActivity(intent);
+        Repository repo=new Repository(getApplication());
+        Term term=new Term(1,"10/1/2022-04/30/2023",100.0);
+        repo.insert(term);
     }
 }
