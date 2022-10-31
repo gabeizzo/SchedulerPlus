@@ -6,24 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".UI.CourseList">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="393dp"
+        android:layout_height="189dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="9dp"
+        android:background="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <Button
-        android:id="@+id/detailsBtn"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Course Details"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:onClick="goToCourseDetails"
-        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/scrollView3"
-        tools:layout_editor_absoluteY="567dp" />
+        android:onClick="saveTerm"
+        android:text="@string/save_button"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/assessmentsBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <Button
+        android:id="@+id/assessmentsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:onClick="goToAssessments"
+        android:text="@string/assessments"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        android:layout_width="391dp"
+        android:layout_height="273dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,61 +78,37 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hi 1"></TextView>
+                    android:text="@string/term_text" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/editTermName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 2"></TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 3"></TextView>
+                    android:layout_height="48dp"
+                    android:hint="@string/enter_term"
+                    android:inputType="text"
+                    android:textColorHint="#757575" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="86dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hi 4"></TextView>
+                    android:text="@string/term_score" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/editTermScore"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 5"></TextView>
+                    android:layout_height="48dp"
+                    android:hint="@string/edit_score"
+                    android:textColorHint="#757575" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 6"></TextView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 7"></TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 8"></TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hi 9"></TextView>
-            </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,19 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.gabriel_izzo_c196_scheduler.Database.Repository;
+import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.List;
 
 public class TermList extends AppCompatActivity {
 
@@ -17,6 +23,13 @@ public class TermList extends AppCompatActivity {
         setContentView(R.layout.activity_term_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        Repository repo=new Repository(getApplication());
+        List<Term> terms=repo.getAllTerms();
+        final TermAdapter adapter=new TermAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setTerms(terms);
     }
 
     public boolean onCreateOptionsMenu (Menu menu){

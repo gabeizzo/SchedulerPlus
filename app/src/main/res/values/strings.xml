@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Gabriel_Izzo_C196_Scheduler</string>
     <string name="term_scheduler">Term Scheduler+</string>
+    <string name="assessments">Assessments</string>
+    <string name="enter_term">Enter Term</string>
+    <string name="term_score">Term Score:</string>
+    <string name="save_button">Save</string>
+    <string name="term_text">Term:</string>
+    <string name="edit_score">100.0</string>
+    <string name="enter_text">Enter</string>
+    <string name="text_view">TextView</string>
 </resources>
