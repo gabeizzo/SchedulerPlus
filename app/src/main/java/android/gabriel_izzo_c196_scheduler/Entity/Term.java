@@ -7,21 +7,24 @@ import androidx.room.PrimaryKey;
 public class Term {
     @PrimaryKey(autoGenerate = true)
     private int termID;
-    private String termName;
-    private double termScore;
+    private String termTitle;
+    private String termStart;
+    private String termEnd;
 
-    public Term(int termID, String termName, double termScore){
+    public Term(int termID, String termTitle, String termStart, String termEnd){
         this.termID = termID;
-        this.termName = termName;
-        this.termScore = termScore;
+        this.termTitle = termTitle;
+        this.termStart = termStart;
+        this.termEnd = termEnd;
 
     }
     @Override
     public String toString(){
         return "Term{" +
-                "termID=" + termID +
-                ", termName='" + termName +
-                ", termScore" + termScore +
+                ", termID=" + termID +
+                ", termTitle=" + termTitle +
+                ", termStart=" + termStart +
+                ", termEnd=" + termEnd +
                 '}';
     }
 
@@ -33,19 +36,27 @@ public class Term {
         this.termID = termID;
     }
 
-    public String getTermName() {
-        return termName;
+    public String getTermTitle() {
+        return termTitle;
     }
 
-    public void setTermName(String termName) {
-        this.termName = termName;
+    public void setTermTitle(String termTitle) {
+        this.termTitle = termTitle;
     }
 
-    public double getTermScore() {
-        return termScore;
+    public String getTermStart() {
+        return termStart;
     }
 
-    public void setTermScore(double termScore) {
-        this.termScore = termScore;
+    public void setTermEnd(String termEnd) {
+        this.termEnd = termEnd;
+    }
+
+    public String getTermEnd(){
+        return termEnd;
+    }
+
+    public void setTermStart(String termStart) {
+        this.termStart = termStart;
     }
 }

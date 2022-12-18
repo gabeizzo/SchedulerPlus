@@ -12,11 +12,13 @@ import android.widget.EditText;
 
 public class CourseList extends AppCompatActivity {
 
-    EditText editName;
-    EditText editScore;
+    EditText editTitle;
+    EditText editStartDate;
+    EditText editEndDate;
     int termID;
-    String name;
-    Double score;
+    String title;
+    String start;
+    String end;
     Repository repo;
 
 
@@ -24,13 +26,17 @@ public class CourseList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-        editName =findViewById(R.id.editTermName);
-        editScore=findViewById(R.id.editTermScore);
+        editTitle =findViewById(R.id.editTermTitle);
+        editStartDate =findViewById(R.id.editTermStart);
+        editEndDate =findViewById(R.id.editTermEnd);
         termID=getIntent().getIntExtra("id", -1);
-        name=getIntent().getStringExtra("name");
-        score=getIntent().getDoubleExtra("score", -1.0);
-        editName.setText(name);
-        editScore.setText(Double.toString(score));
+        title =getIntent().getStringExtra("title");
+        start =getIntent().getStringExtra("start");
+        end =getIntent().getStringExtra("end");
+        editTitle.setText(title);
+        editStartDate.setText(start);
+        editEndDate.setText(end);
+
         repo=new Repository(getApplication());
 
     }
@@ -44,11 +50,11 @@ public class CourseList extends AppCompatActivity {
         Term term;
         if (termID == -1){
             int newID = repo.getAllTerms().get(repo.getAllTerms().size()-1).getTermID()+1;
-            term = new Term(newID, editName.getText().toString(), Double.parseDouble(editScore.getText().toString()));
+            term = new Term(newID, editTitle.getText().toString(), editStartDate.getText().toString(), editEndDate.getText().toString());
             repo.insert(term);
         }
         else {
-            term=new Term(termID, editName.getText().toString(), Double.parseDouble(editScore.getText().toString()));
+            term=new Term(termID, editTitle.getText().toString(), editStartDate.getText().toString(), editEndDate.getText().toString());
             repo.update(term);
         }
 

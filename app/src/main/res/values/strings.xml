@@ -3,10 +3,12 @@
     <string name="term_scheduler">Term Scheduler+</string>
     <string name="assessments">Assessments</string>
     <string name="enter_term">Enter Term</string>
-    <string name="term_score">Term Score:</string>
+    <string name="term_start">Term Start Date:</string>
     <string name="save_button">Save</string>
-    <string name="term_text">Term:</string>
-    <string name="edit_score">100.0</string>
+    <string name="term_text">Term Name:</string>
+    <string name="edit_start">01/01/2023</string>
     <string name="enter_text">Enter</string>
     <string name="text_view">TextView</string>
+    <string name="term_end">Term End Date:</string>
+    <string name="edit_end">01/06/2023</string>
 </resources>

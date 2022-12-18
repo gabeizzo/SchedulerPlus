@@ -7,13 +7,15 @@ import androidx.room.PrimaryKey;
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
     private int assessmentID;
-    private String assessmentName;
-    private double assessmentScore;
+    private String assessmentType;
+    private String assessmentTitle;
+    private String assessmentDate;
 
-    public Assessment(Integer assessmentID, String assessmentName, double assessmentScore){
+    public Assessment(Integer assessmentID, String assessmentType, String assessmentTitle, String assessmentDate){
         this.assessmentID = assessmentID;
-        this.assessmentName = assessmentName;
-        this.assessmentScore = assessmentScore;
+        this.assessmentType = assessmentType;
+        this.assessmentTitle = assessmentTitle;
+        this.assessmentDate = assessmentDate;
 
     }
 
@@ -21,30 +23,41 @@ public class Assessment {
     public String toString(){
         return "Assessment{" +
                 "assessmentID=" + assessmentID +
-                ", assessmentName='" + assessmentName +
-                ", assessmentScore" + assessmentScore +
+                ", assessmentType=" + assessmentType +
+                ", assessmentTitle=" + assessmentTitle +
+                ", assessmentDate=" + assessmentDate +
                 '}';
     }
 
-    public int getAssessmentID() {return assessmentID; }
+    public int getAssessmentID() {
+        return assessmentID;
+    }
 
     public void setAssessmentID(int assessmentID) {
         this.assessmentID = assessmentID;
     }
 
-    public String getAssessmentName() {
-        return assessmentName;
+    public String getAssessmentType() {
+        return assessmentType;
     }
 
-    public void setAssessmentName(String assessmentName) {
-        this.assessmentName = assessmentName;
+    public void setAssessmentType(String assessmentType) {
+        this.assessmentType = assessmentType;
     }
 
-    public double getAssessmentScore() {
-        return assessmentScore;
+    public String getAssessmentTitle() {
+        return assessmentTitle;
     }
 
-    public void setAssessmentScore(double assessmentScore) {
-        this.assessmentScore = assessmentScore;
+    public void setAssessmentTitle(String assessmentTitle) {
+        this.assessmentTitle = assessmentTitle;
+    }
+
+    public String getAssessmentDate() {
+        return assessmentDate;
+    }
+
+    public void setAssessmentDate(String assessmentDate) {
+        this.assessmentDate = assessmentDate;
     }
 }

@@ -55,8 +55,8 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="391dp"
-        android:layout_height="273dp"
+        android:layout_width="394dp"
+        android:layout_height="177dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
@@ -76,13 +76,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/termNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/term_text" />
 
                 <EditText
-                    android:id="@+id/editTermName"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editTermTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/enter_term"
                     android:inputType="text"
@@ -90,22 +91,44 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/termStartTxt"
                 android:layout_width="match_parent"
-                android:layout_height="86dp"
+                android:layout_height="48dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/termStartText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/term_score" />
+                    android:text="@string/term_start" />
 
                 <EditText
-                    android:id="@+id/editTermScore"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/editTermStart"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/edit_score"
+                    android:hint="@string/edit_start"
                     android:textColorHint="#757575" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/termEndTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_end" />
+
+                <EditText
+                    android:id="@+id/editTermEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="@string/edit_end"
+                    android:inputType="text"
+                    android:textColorHint="#757575" />
             </LinearLayout>
 
         </LinearLayout>

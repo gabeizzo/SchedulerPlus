@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this, TermList.class);
         startActivity(intent);
         Repository repo=new Repository(getApplication());
-        Term term=new Term(1,"10/1/2022-04/30/2023",100.0);
+        Term term=new Term(1,"Spring 2023", "01/01/2023", "01/06/2023");
         repo.insert(term);
-        Assessment assessment=new Assessment(1,"Objective Assessment",100.0);
+        Assessment assessment=new Assessment(1,"Objective Assessment","ABM2 — ABM2 TASK 1: MOBILE APPLICATION DEVELOPMENT","1/1/2021");
         repo.insert(assessment);
-        Course course=new Course(1,"Mobile Applications",100.0);
+        Course course=new Course(1,"Mobile Applications", "01/01/2023", "06/01/2023", "In Progress", "Mike Jones", "123-456-7891", "mikeinstructor@wgu.edu", "Example Course Notes");
         repo.insert(course);
     }
 }

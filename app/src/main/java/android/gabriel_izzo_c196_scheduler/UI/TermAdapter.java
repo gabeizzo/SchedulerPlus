@@ -28,8 +28,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                   final Term current=mTerms.get(position);
                   Intent intent=new Intent(context, CourseList.class);
                   intent.putExtra("id", current.getTermID());
-                  intent.putExtra("name", current.getTermName());
-                  intent.putExtra("score", current.getTermScore());
+                  intent.putExtra("name", current.getTermTitle());
+                  intent.putExtra("start", current.getTermStart());
+                  intent.putExtra("end", current.getTermEnd());
                   context.startActivity(intent);
                 }
             });
@@ -54,7 +55,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
         if(mTerms!=null){
             Term current = mTerms.get(position);
-            String name = current.getTermName();
+            String name = current.getTermTitle();
             holder.termItemView.setText(name);
         }
         else{

@@ -7,21 +7,40 @@ import androidx.room.PrimaryKey;
 public class Course {
     @PrimaryKey(autoGenerate = true)
     private int courseID;
-    private String courseName;
-    private double courseScore;
+    private String courseTitle;
+    private String courseStart;
+    private String courseEnd;
+    private String courseStatus;
+    private String instructorName;
+    private String instructorPhone;
+    private String instructorEmail;
+    private String courseNote;
 
-    public Course(int courseID, String courseName,double courseScore){
-        this.courseID = courseID;
-        this.courseName = courseName;
-        this.courseScore = courseScore;
+    public Course(int courseID, String courseTitle, String courseStart, String courseEnd, String courseStatus, String instructorName, String instructorPhone, String instructorEmail, String courseNote){
+        this.courseID= courseID;
+        this.courseTitle = courseTitle;
+        this.courseStart = courseStart;
+        this.courseEnd = courseEnd;
+        this.courseStatus = courseStatus;
+        this.instructorName = instructorName;
+        this.instructorPhone = instructorPhone;
+        this.instructorEmail = instructorEmail;
+        this.courseNote = courseNote;
+
 
     }
     @Override
     public String toString(){
         return "Course{" +
-                "courseID=" + courseID +
-                ", courseName='" + courseName +
-                ", couresScore" + courseScore +
+                ", courseID=" + courseID +
+                ", courseTitle=" + courseTitle +
+                ", courseStart=" + courseStart +
+                ", courseEnd=" + courseEnd +
+                ", courseStatus=" + courseStatus +
+                ", instructorName=" + instructorName +
+                ", instructorPhone=" + instructorPhone +
+                ", instructorEmail=" + instructorEmail +
+                ", courseNote=" + courseNote +
                 '}';
     }
 
@@ -33,19 +52,65 @@ public class Course {
         this.courseID = courseID;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getCourseTitle() {
+        return courseTitle;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
     }
 
-    public double getCourseScore() {
-        return courseScore;
+    public String getCourseStart() {
+        return courseStart;
+    }
+    public void setCourseStart(String courseStart) {
+        this.courseStart = courseStart;
     }
 
-    public void setCourseScore(double courseScore) {
-        this.courseScore = courseScore;
+    public String getCourseEnd() {
+        return courseEnd;
+    }
+    public void setCourseEnd(String courseEnd) {
+        this.courseEnd = courseEnd;
+    }
+
+    public String getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(String courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public String getInstructorName() {
+        return instructorName;
+    }
+
+    public void setInstructorName(String instructorName) {
+        this.instructorName = instructorName;
+    }
+
+    public String getInstructorPhone() {
+        return instructorPhone;
+    }
+
+    public void setInstructorPhone(String instructorPhone) {
+        this.instructorPhone = instructorPhone;
+    }
+
+    public String getInstructorEmail() {
+        return instructorEmail;
+    }
+
+    public void setInstructorEmail(String instructorEmail) {
+        this.instructorEmail = instructorEmail;
+    }
+
+    public String getCourseNote() {
+        return courseNote;
+    }
+
+    public void setCourseNote(String courseNote) {
+        this.courseNote = courseNote;
     }
 }
