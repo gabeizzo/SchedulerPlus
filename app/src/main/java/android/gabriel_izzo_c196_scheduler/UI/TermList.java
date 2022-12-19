@@ -34,21 +34,28 @@ public class TermList extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu (Menu menu){
             //Inflate the menu; this adds items to the action bar if it is present
-            getMenuInflater().inflate(R.menu.menu_termlist, menu);
+            getMenuInflater().inflate(R.menu.menu_term_list, menu);
             return true;
         }
 
         public boolean onOptionsItemSelected (MenuItem item) {
                 switch (item.getItemId()) {
-                    case android.R.id.home:
-                        this.finish();
+                    case R.id.assessments:
+                        Intent intent=new Intent(TermList.this, AssessmentList.class);
+                        startActivity(intent);
+                        finish();
                         return true;
                 }
         return super.onOptionsItemSelected(item);
         }
+    public void goToAssessments(View view) {
+        Intent intent=new Intent(TermList.this, AssessmentList.class);
+        startActivity(intent);
+    }
 
-    public void goToCourseList(View view) {
-        Intent intent=new Intent(TermList.this, CourseList.class);
+
+    public void goToTermDetails(View view) {
+        Intent intent=new Intent(TermList.this, TermDetails.class);
         startActivity(intent);
     }
 }

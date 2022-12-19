@@ -9,10 +9,17 @@
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_assessment_list.xml" value="0.37318840579710144" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_course_detail.xml" value="0.10400000000000001" />
-        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_course_list.xml" value="0.264" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_course_details.xml" value="0.3109375" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_course_list.xml" value="0.333984375" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_main.xml" value="0.22370218579234974" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_new_term.xml" value="0.264" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_term_details.xml" value="0.3917349726775956" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/activity_term_list.xml" value="0.40942028985507245" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/layout/term_list_item.xml" value="0.3098958333333333" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/menu/menu_assessments_list.xml" value="0.55" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/menu/menu_course_list.xml" value="0.55" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/menu/menu_term_details.xml" value="0.55" />
+        <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/menu/menu_term_list.xml" value="0.55" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/menu/menu_termlist.xml" value="0.55" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/gabei/AndroidStudioProjects/Gabriel_Izzo_C196_Scheduler/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />

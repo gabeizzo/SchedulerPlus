@@ -11,4 +11,12 @@
     <string name="text_view">TextView</string>
     <string name="term_end">Term End Date:</string>
     <string name="edit_end">01/06/2023</string>
+    <string name="shareTxt">Share</string>
+    <string name="termsTxt">Terms</string>
+    <string name="assessmentsTxt">Assessments</string>
+    <string name="all_courses">All Courses</string>
+    <string name="added_courses">Added Courses</string>
+    <string name="delete_term">Delete Term</string>
+    <string name="courses">Courses</string>
+    <string name="add">ADD</string>
 </resources>

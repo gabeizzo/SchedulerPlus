@@ -26,7 +26,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                 public void onClick(View view) {
                   int position=getAdapterPosition();
                   final Term current=mTerms.get(position);
-                  Intent intent=new Intent(context, CourseList.class);
+                  Intent intent=new Intent(context, TermDetails.class);
                   intent.putExtra("id", current.getTermID());
                   intent.putExtra("name", current.getTermTitle());
                   intent.putExtra("start", current.getTermStart());
