@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/assessments"
-        android:title="Assessments" />
+        android:onClick="goToAssessments"
+        android:title="@string/assessmentMenuTxt" />
     <item
         android:id="@+id/courses"
-        android:title="Courses" />
+        android:onClick="goToCourses"
+        android:title="@string/coursesTxt" />
 </menu>

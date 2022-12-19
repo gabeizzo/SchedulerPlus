@@ -22,7 +22,6 @@ public class TermList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RecyclerView recyclerView=findViewById(R.id.recyclerview);
         Repository repo=new Repository(getApplication());
         List<Term> terms=repo.getAllTerms();
@@ -38,24 +37,18 @@ public class TermList extends AppCompatActivity {
             return true;
         }
 
-        public boolean onOptionsItemSelected (MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.assessments:
-                        Intent intent=new Intent(TermList.this, AssessmentList.class);
-                        startActivity(intent);
-                        finish();
-                        return true;
-                }
-        return super.onOptionsItemSelected(item);
-        }
-    public void goToAssessments(View view) {
-        Intent intent=new Intent(TermList.this, AssessmentList.class);
-        startActivity(intent);
-    }
-
 
     public void goToTermDetails(View view) {
         Intent intent=new Intent(TermList.this, TermDetails.class);
+        startActivity(intent);
+    }
+
+    public void goToAssessments(MenuItem item) {
+        Intent intent=new Intent(TermList.this, AssessmentList.class);
+        startActivity(intent);
+    }
+    public void goToCourses(MenuItem item) {
+        Intent intent=new Intent(TermList.this, CourseList.class);
         startActivity(intent);
     }
 }

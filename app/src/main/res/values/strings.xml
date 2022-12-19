@@ -19,4 +19,6 @@
     <string name="delete_term">Delete Term</string>
     <string name="courses">Courses</string>
     <string name="add">ADD</string>
+    <string name="coursesTxt">Courses</string>
+    <string name="assessmentMenuTxt">Assessments</string>
 </resources>
