@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/cl_assessments"
+        android:onClick="goToAssessments"
+        android:title="@string/cl_assessments_menu" />
+    <item
+        android:id="@+id/cl_terms"
+        android:onClick="goToTerms"
+        android:title="@string/cl_terms_menu" />
+</menu>

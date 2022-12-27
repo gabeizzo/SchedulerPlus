@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Courses" />
-    <item android:title="Terms" />
+    <item
+        android:id="@+id/al_courses"
+        android:onClick="goToCourses"
+        android:title="@string/al_courses_menu" />
+    <item
+        android:id="@+id/al_terms"
+        android:onClick="goToTerms"
+        android:title="@string/al_terms_menu" />
 </menu>

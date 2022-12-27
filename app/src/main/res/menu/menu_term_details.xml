@@ -3,12 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/assessments"
-        android:title="@string/assessmentsTxt" />
+        android:id="@+id/tl_assessments"
+        android:onClick="goToAssessments"
+        android:title="@string/td_assessments_menu" />
     <item
-        android:id="@+id/courses"
-        android:title="@string/courses" />
+        android:id="@+id/tl_courses"
+        android:onClick="goToCourses"
+        android:title="@string/td_courses_menu" />
     <item
         android:id="@+id/deleteTerm"
+        android:onClick="deleteTerm"
         android:title="@string/delete_term" />
 </menu>

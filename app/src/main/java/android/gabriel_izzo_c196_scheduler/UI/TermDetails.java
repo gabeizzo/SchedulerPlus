@@ -76,4 +76,7 @@ public class TermDetails extends AppCompatActivity {
         }
 
     }
+
+    public void deleteTerm(MenuItem item) {
+    }
 }

@@ -19,6 +19,17 @@
     <string name="delete_term">Delete Term</string>
     <string name="courses">Courses</string>
     <string name="add">ADD</string>
-    <string name="coursesTxt">Courses</string>
-    <string name="assessmentMenuTxt">Assessments</string>
+    <string name="tl_course_menu">Courses</string>
+    <string name="tl_assessment_menu">Assessments</string>
+    <string name="course_list_item_textview">Course List Item TextView</string>
+    <string name="assessment_list_item_textview">Assessment List Item TextView</string>
+    <string name="cd_assessment_menu">Assessments</string>
+    <string name="cd_terms_menu">Terms</string>
+    <string name="cl_assessments_menu">Assessments</string>
+    <string name="cl_terms_menu">Terms</string>
+    <string name="td_courses_menu">Courses</string>
+    <string name="td_assessments_menu">Assessments</string>
+    <string name="cd_share_menu">Share</string>
+    <string name="al_courses_menu">Courses</string>
+    <string name="al_terms_menu">Terms</string>
 </resources>
