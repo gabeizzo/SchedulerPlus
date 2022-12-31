@@ -17,7 +17,7 @@
             android:name=".UI.AssessmentList"
             android:label="Assessments"
             android:windowSoftInputMode="stateHidden|adjustPan"
-            android:parentActivityName=".UI.TermDetails"
+            android:parentActivityName=".UI.CourseList"
             android:exported="false" />
         <activity
             android:name=".UI.AssessmentDetails"

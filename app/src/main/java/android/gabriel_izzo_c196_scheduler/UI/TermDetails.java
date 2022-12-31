@@ -28,9 +28,9 @@ public class TermDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_details);
-        editTitle =findViewById(R.id.editTermTitle);
-        editStartDate =findViewById(R.id.editTermStart);
-        editEndDate =findViewById(R.id.editTermEnd);
+        editTitle =findViewById(R.id.termNameTxt);
+        editStartDate =findViewById(R.id.termStartTxt);
+        editEndDate =findViewById(R.id.termEndTxt);
         termID=getIntent().getIntExtra("id", -1);
         title =getIntent().getStringExtra("title");
         start =getIntent().getStringExtra("start");
@@ -58,11 +58,6 @@ public class TermDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToAssessments(View view) {
-        Intent intent=new Intent(TermDetails.this, AssessmentList.class);
-        startActivity(intent);
-    }
-
     public void saveTerm(View view) {
         Term term;
         if (termID == -1){
@@ -78,5 +73,15 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void deleteTerm(MenuItem item) {
+    }
+
+    public void goToAssessments(MenuItem item) {
+        Intent intent=new Intent(TermDetails.this, AssessmentList.class);
+        startActivity(intent);
+    }
+
+    public void goToCourses(MenuItem item) {
+        Intent intent=new Intent(TermDetails.this, CourseList.class);
+        startActivity(intent);
     }
 }

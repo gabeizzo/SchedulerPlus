@@ -11,32 +11,47 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:onClick="saveTerm"
         android:text="@string/save_button"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="548dp" />
-
-    <Button
-        android:id="@+id/assessmentsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:onClick="goToAssessments"
-        android:text="@string/assessments"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addCourseButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
     <Button
         android:id="@+id/addCourseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/add"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/saveButton"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+    <Button
+        android:id="@+id/drop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/drop_button_txt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addCourseButton"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -64,7 +79,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/termNameTxt"
+                    android:id="@+id/termNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/term_text"
@@ -72,7 +87,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editTermTitle"
+                    android:id="@+id/termNameTxt"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/enter_term"
@@ -84,7 +99,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/termStartTxt"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="10dp"
@@ -92,7 +106,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/termStartText"
+                    android:id="@+id/termStartLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/term_start"
@@ -100,7 +114,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editTermStart"
+                    android:id="@+id/termStartTxt"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/edit_start"
@@ -120,7 +134,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/termEndTxt"
+                    android:id="@+id/termEndLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/term_end"
@@ -128,7 +142,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editTermEnd"
+                    android:id="@+id/termEndTxt"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/edit_end"
@@ -140,7 +154,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/addedCoursesTxt"
+                android:id="@+id/addedCoursesLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -163,7 +177,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/allCoursesTxt"
+                android:id="@+id/allCoursesLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

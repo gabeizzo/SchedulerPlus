@@ -32,4 +32,7 @@
     <string name="cd_share_menu">Share</string>
     <string name="al_courses_menu">Courses</string>
     <string name="al_terms_menu">Terms</string>
+    <string name="all_terms_title">All Terms</string>
+    <string name="drop_button_txt">DROP</string>
+    <string name="all_courses_title">All Courses</string>
 </resources>
