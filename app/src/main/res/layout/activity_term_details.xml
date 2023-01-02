@@ -82,12 +82,12 @@
                     android:id="@+id/termNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/term_text"
+                    android:text="@string/term_title"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/termNameTxt"
+                    android:id="@+id/termTitleTxt"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/enter_term"

@@ -1,5 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
@@ -19,7 +20,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         private final TextView courseItemView;
         private CourseViewHolder (View itemView){
             super(itemView);
-            courseItemView=itemView.findViewById(R.id.textView);
+            courseItemView=itemView.findViewById(R.id.courseItemTextView);
             itemView.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -35,6 +36,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     intent.putExtra("instructor", current.getInstructorName());
                     intent.putExtra("phone", current.getInstructorPhone());
                     intent.putExtra("email", current.getInstructorEmail());
+                    intent.putExtra("notes", current.getCourseNote());
                     context.startActivity(intent);
 
                 }

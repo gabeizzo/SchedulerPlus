@@ -5,7 +5,7 @@
     <string name="enter_term">Enter Term</string>
     <string name="term_start">Term Start Date:</string>
     <string name="save_button">Save</string>
-    <string name="term_text">Term Name:</string>
+    <string name="term_title">Term Title:</string>
     <string name="edit_start">01/01/2023</string>
     <string name="enter_text">Enter</string>
     <string name="text_view">TextView</string>
@@ -35,4 +35,5 @@
     <string name="all_terms_title">All Terms</string>
     <string name="drop_button_txt">DROP</string>
     <string name="all_courses_title">All Courses</string>
+    <string name="course_start_date">Start Date:</string>
 </resources>

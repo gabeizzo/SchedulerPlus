@@ -14,15 +14,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Repository {
-    private AssessmentDAO mAssessmentDAO;
-    private CourseDAO mCourseDAO;
-    private TermDAO mTermDAO;
+    private final AssessmentDAO mAssessmentDAO;
+    private final CourseDAO mCourseDAO;
+    private final TermDAO mTermDAO;
     private List<Assessment> mAllAssessments;
     private List<Term> mAllTerms;
     private List<Course> mAllCourses;
 
 
-    private static int NUMBER_OF_THREADS=4;
+    private static final int NUMBER_OF_THREADS=4;
     static final ExecutorService databaseExecutor= Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public Repository(Application application){
