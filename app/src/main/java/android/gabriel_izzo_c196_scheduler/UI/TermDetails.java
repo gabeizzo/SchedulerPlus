@@ -3,6 +3,7 @@ package android.gabriel_izzo_c196_scheduler.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Slide;
 
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.DAO.TermDAO;
@@ -12,6 +13,7 @@ import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,14 +70,21 @@ public class TermDetails extends AppCompatActivity {
 
     public void saveTerm(View view) {
         Term term;
-        if (termID == -1){
-            int newID = repo.getAllTerms().get(repo.getAllTerms().size()-1).getTermID()+1;
-            term = new Term(newID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
-            repo.insert(term);
+
+        try {
+            if (termID == -1) {
+                int newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
+                term = new Term(newID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                repo.insert(term);
+            } else {
+                term = new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                repo.update(term);
+            }
+            Toast toast = Toast.makeText(this, "Term Saved", Toast.LENGTH_LONG);
+            toast.show();
         }
-        else {
-            term=new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
-            repo.update(term);
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

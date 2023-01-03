@@ -8,7 +8,7 @@
     <string name="term_title">Term Title:</string>
     <string name="edit_start">01/01/2023</string>
     <string name="enter_text">Enter</string>
-    <string name="text_view">TextView</string>
+    <string name="term_name">TextView</string>
     <string name="term_end">Term End Date:</string>
     <string name="edit_end">01/06/2023</string>
     <string name="shareTxt">Share</string>
@@ -36,4 +36,22 @@
     <string name="drop_button_txt">DROP</string>
     <string name="all_courses_title">All Courses</string>
     <string name="course_start_date">Start Date:</string>
+    <string name="term_date_text">date</string>
+    <string name="save_btn">SAVE</string>
+    <string name="course_assessments_lbl">Assessments</string>
+    <string name="enter_notes">Enter Notes</string>
+    <string name="course_notes_lbl">Course Notes</string>
+    <string name="instructor_email_hint">instructor@wgu.edu</string>
+    <string name="phone_hint">+12345678910</string>
+    <string name="phone_lbl">Phone:</string>
+    <string name="instructor_name_hint">Enter Instructor Name</string>
+    <string name="email_lbl">Email:</string>
+    <string name="mm_dd_yyyy">MM/DD/YYYY</string>
+    <string name="mm_dd_yyyy1">MM/DD/YYYY</string>
+    <string name="title_hint">Enter Title</string>
+    <string name="course_title_lbl">Course Title:</string>
+    <string name="end_date_lbl">End Date:</string>
+    <string name="status_lbl">Status:</string>
+    <string name="status_hint">Not Started, In Progress, Completed</string>
+    <string name="instructor_name_lbl">Instructor:</string>
 </resources>

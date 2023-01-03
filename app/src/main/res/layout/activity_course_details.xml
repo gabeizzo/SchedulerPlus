@@ -37,7 +37,7 @@
                     android:id="@+id/courseTitleLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="Course Title:"
+                    android:text="@string/course_title_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                     android:id="@+id/courseTitleTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Enter Title"
+                    android:hint="@string/title_hint"
                     android:inputType="text"
                     android:textSize="14sp" />
 
@@ -70,8 +70,8 @@
                     android:id="@+id/courseStartTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="MM/DD/YYYY"
-                    android:inputType="text"
+                    android:hint="@string/mm_dd_yyyy1"
+                    android:inputType="date"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -87,7 +87,7 @@
                     android:id="@+id/courseEndLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="End Date:"
+                    android:text="@string/end_date_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -95,8 +95,8 @@
                     android:id="@+id/courseEndTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="MM/DD/YYYY"
-                    android:inputType="text"
+                    android:hint="@string/mm_dd_yyyy"
+                    android:inputType="date"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -112,7 +112,7 @@
                     android:id="@+id/courseStatusLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="Status:"
+                    android:text="@string/status_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
                     android:id="@+id/courseStatusTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Not Started, In Progress, Completed"
+                    android:hint="@string/status_hint"
                     android:inputType="text"
                     android:textSize="14sp" />
 
@@ -137,7 +137,7 @@
                     android:id="@+id/instructorNameLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="Instructor:"
+                    android:text="@string/instructor_name_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -145,7 +145,7 @@
                     android:id="@+id/instructorNameTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Enter Instructor Name"
+                    android:hint="@string/instructor_name_hint"
                     android:inputType="text"
                     android:textSize="14sp" />
 
@@ -162,7 +162,7 @@
                     android:id="@+id/instructorPhoneLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="Phone:"
+                    android:text="@string/phone_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -170,8 +170,8 @@
                     android:id="@+id/instructorPhoneTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="+12345678910"
-                    android:inputType="text"
+                    android:hint="@string/phone_hint"
+                    android:inputType="phone"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -188,7 +188,7 @@
                     android:id="@+id/instructorEmailLbl"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
-                    android:text="Email:"
+                    android:text="@string/email_lbl"
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
@@ -196,11 +196,41 @@
                     android:id="@+id/instructorEmailTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="instructor@wgu.edu"
-                    android:inputType="text"
+                    android:hint="@string/instructor_email_hint"
+                    android:inputType="textEmailAddress"
                     android:textSize="14sp" />
 
             </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/assessmentsLbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/triton_dark_blue"
+                android:text="@string/course_assessments_lbl"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/courseAssessmentsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/triton_light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -214,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/triton_blue"
-                    android:text="Course Notes"
+                    android:text="@string/course_notes_lbl"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="24sp"
@@ -227,45 +257,15 @@
             <EditText
                 android:id="@+id/courseNotesTxt"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="400dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Enter Notes"
-                android:inputType="textMultiLine" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/assessmentsLbl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/triton_gray"
-                    android:text="Assessments"
-                    android:textAlignment="center"
-                    android:textColor="@color/triton_dark_blue"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/courseAssessmentsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/triton_light_gray" />
+                android:hint="@string/enter_notes"
+                android:inputType="textMultiLine"/>
 
         </LinearLayout>
     </ScrollView>
@@ -277,7 +277,8 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="295dp"
         android:layout_marginBottom="5dp"
-        android:text="SAVE"
+        android:onClick="saveCourse"
+        android:text="@string/save_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,9 +1,11 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
+import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -66,6 +68,22 @@ public class CourseDetails extends AppCompatActivity {
 
         repo=new Repository(getApplication());
     }
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        //Inflate the menu; this adds items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_course_details, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void saveCourse(View view)   {
         Course course;
         if (courseID == -1){
@@ -84,6 +102,13 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void goToTerms(MenuItem item) {
+        Intent intent=new Intent(CourseDetails.this, TermList.class);
+        startActivity(intent);
+    }
+
+    public void goToAssessments(MenuItem item){
+        Intent intent=new Intent(CourseDetails.this, AssessmentList.class);
+        startActivity(intent);
     }
 
     public void shareCourseDetails(MenuItem item) {

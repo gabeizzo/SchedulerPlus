@@ -15,11 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
+
     public class TermViewHolder extends RecyclerView.ViewHolder{
         private final TextView termItemView;
+        private final TextView termDateView;
+
         private TermViewHolder (View itemView){
             super(itemView);
-            termItemView=itemView.findViewById(R.id.textView);
+            termItemView=itemView.findViewById(R.id.textView_term_name);
+            termDateView=itemView.findViewById(R.id.textView_term_date);
             itemView.setOnClickListener(view -> {
               int position=getAdapterPosition();
               final Term current=mTerms.get(position);
@@ -52,7 +56,11 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         if(mTerms!=null){
             Term current = mTerms.get(position);
             String name = current.getTermTitle();
+            String start = current.getTermStart();
+            String end = current.getTermEnd();
             holder.termItemView.setText(name);
+            holder.termDateView.setText(new StringBuilder().append("(").append(start).append(" - ").append(end).append(")").toString());
+
         }
         else{
             holder.termItemView.setText("No Terms Currently");
