@@ -9,4 +9,5 @@
         android:id="@+id/tl_courses"
         android:onClick="goToCourses"
         android:title="@string/tl_course_menu" />
+
 </menu>

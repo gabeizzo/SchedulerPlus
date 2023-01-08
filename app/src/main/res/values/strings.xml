@@ -3,14 +3,14 @@
     <string name="term_scheduler">Term Scheduler+</string>
     <string name="assessments">Assessments</string>
     <string name="enter_term">Enter Term</string>
-    <string name="term_start">Term Start Date:</string>
+    <string name="term_start">Start Date:</string>
     <string name="save_button">Save</string>
-    <string name="term_title">Term Title:</string>
-    <string name="edit_start">01/01/2023</string>
+    <string name="term_title">Title:</string>
+    <string name="edit_start">MM/DD/YYYY</string>
     <string name="enter_text">Enter</string>
     <string name="term_name">TextView</string>
-    <string name="term_end">Term End Date:</string>
-    <string name="edit_end">01/06/2023</string>
+    <string name="term_end">End Date:</string>
+    <string name="edit_end">MM/DD/YYYY</string>
     <string name="shareTxt">Share</string>
     <string name="termsTxt">Terms</string>
     <string name="assessmentsTxt">Assessments</string>
@@ -18,7 +18,7 @@
     <string name="added_courses">Added Courses</string>
     <string name="delete_term">Delete Term</string>
     <string name="courses">Courses</string>
-    <string name="add">ADD</string>
+    <string name="add">ADD COURSE</string>
     <string name="tl_course_menu">Courses</string>
     <string name="tl_assessment_menu">Assessments</string>
     <string name="course_list_item_textview">Course List Item TextView</string>
@@ -54,4 +54,6 @@
     <string name="status_lbl">Status:</string>
     <string name="status_hint">Not Started, In Progress, Completed</string>
     <string name="instructor_name_lbl">Instructor:</string>
+    <string name="update_term_lbl">Update</string>
+    <string name="tl_edit_menu">Edit</string>
 </resources>

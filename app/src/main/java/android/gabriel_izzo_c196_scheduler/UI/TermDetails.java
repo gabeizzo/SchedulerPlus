@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class TermDetails extends AppCompatActivity {
     String start;
     String end;
     Repository repo;
+
 
 
     @Override
@@ -50,6 +52,11 @@ public class TermDetails extends AppCompatActivity {
         termEnd.setText(end);
 
         repo=new Repository(getApplication());
+
+        if(termID != -1){
+            Button saveButton = findViewById(R.id.saveButton);
+            saveButton.setText(R.string.update_term_lbl);
+        }
 
     }
     @Override
@@ -76,12 +83,26 @@ public class TermDetails extends AppCompatActivity {
                 int newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
                 term = new Term(newID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
                 repo.insert(term);
+
+                Toast toast = Toast.makeText(this, "New Term Added", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent=new Intent(TermDetails.this, TermList.class);
+                startActivity(intent);
+
+
             } else {
                 term = new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
                 repo.update(term);
+
+                Toast toast = Toast.makeText(this, "Term Updated", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent=new Intent(TermDetails.this, TermList.class);
+                startActivity(intent);
+
             }
-            Toast toast = Toast.makeText(this, "Term Saved", Toast.LENGTH_LONG);
-            toast.show();
+
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +111,22 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void deleteTerm(MenuItem item) {
+        Term term;
+        try {
+            if (termID != -1) {
+                term = new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                repo.delete(term);
 
+                Toast toast = Toast.makeText(this, "Term Deleted Successfully", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent=new Intent(TermDetails.this, TermList.class);
+                startActivity(intent);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToAssessments(MenuItem item) {
