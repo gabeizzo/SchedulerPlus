@@ -23,12 +23,12 @@ public class TermList extends AppCompatActivity {
         setContentView(R.layout.activity_term_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView termListRecyclerView = findViewById(R.id.tl_recyclerView);
         Repository repo = new Repository(getApplication());
         List<Term> terms = repo.getAllTerms();
         final TermAdapter adapter = new TermAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        termListRecyclerView.setAdapter(adapter);
+        termListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
     }
 
@@ -37,12 +37,12 @@ public class TermList extends AppCompatActivity {
         setContentView(R.layout.activity_term_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView termListRecyclerView = findViewById(R.id.tl_recyclerView);
         Repository repo = new Repository(getApplication());
         List<Term> terms = repo.getAllTerms();
         final TermAdapter adapter = new TermAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        termListRecyclerView.setAdapter(adapter);
+        termListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
     }
 

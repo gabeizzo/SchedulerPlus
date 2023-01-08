@@ -216,11 +216,11 @@
                 android:id="@+id/assessmentsLbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/triton_dark_blue"
+                android:background="@color/triton_orange"
                 android:text="@string/course_assessments_lbl"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -249,7 +249,7 @@
                     android:text="@string/course_notes_lbl"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 

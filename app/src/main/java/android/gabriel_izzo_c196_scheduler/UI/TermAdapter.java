@@ -2,9 +2,9 @@ package android.gabriel_izzo_c196_scheduler.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +20,18 @@ import java.util.List;
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
 
     public class TermViewHolder extends RecyclerView.ViewHolder{
-        private final TextView termItemView;
+        private final TextView termTitleView;
         private final TextView termDateView;
         private final ConstraintLayout termItemLayout;
+        private final RecyclerView allCoursesRecycler;
 
         private TermViewHolder (View itemView){
             super(itemView);
-            termItemView=itemView.findViewById(R.id.textView_term_name);
+            termTitleView =itemView.findViewById(R.id.textView_term_name);
             termDateView=itemView.findViewById(R.id.textView_term_date);
             termItemLayout = itemView.findViewById(R.id.term_item_layout);
+            allCoursesRecycler = itemView.findViewById(R.id.allCourses);
+
             itemView.setOnClickListener(view -> {
               int position=getAdapterPosition();
               final Term current=mTerms.get(position);
@@ -44,6 +47,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     }
 
     private List<Term> mTerms;
+    private List<Course> mCourses;
     private final Context context;
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
@@ -69,22 +73,22 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             String name = current.getTermTitle();
             String start = current.getTermStart();
             String end = current.getTermEnd();
-            holder.termItemView.setText(name);
+            holder.termTitleView.setText(name);
             holder.termDateView.setText(new StringBuilder().append("(").append(start).append(" - ").append(end).append(")").toString());
 
         }
         else{
-            holder.termItemView.setText("No Terms Currently");
+            holder.termTitleView.setText("No Terms Currently");
         }
         if (selectedPosition == position) {
             holder.itemView.setSelected(true); //using selector drawable
-            holder.termItemView.setTextColor(ContextCompat.getColor(holder.termItemView.getContext(),R.color.white));
+            holder.termTitleView.setTextColor(ContextCompat.getColor(holder.termTitleView.getContext(),R.color.white));
             holder.termItemLayout.setBackgroundColor(ContextCompat.getColor(holder.termItemLayout.getContext(),R.color.triton_blue));
             holder.termDateView.setTextColor(ContextCompat.getColor(holder.termDateView.getContext(),R.color.white));
 
         } else {
             holder.itemView.setSelected(false);
-            holder.termItemView.setTextColor(ContextCompat.getColor(holder.termDateView.getContext(),R.color.black));
+            holder.termTitleView.setTextColor(ContextCompat.getColor(holder.termTitleView.getContext(),R.color.black));
             holder.termDateView.setTextColor(ContextCompat.getColor(holder.termDateView.getContext(),R.color.black));
         }
 

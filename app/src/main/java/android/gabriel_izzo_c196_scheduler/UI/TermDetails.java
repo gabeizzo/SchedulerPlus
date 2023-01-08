@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 
 import android.content.Intent;
+import android.content.ReceiverCallNotAllowedException;
 import android.gabriel_izzo_c196_scheduler.DAO.TermDAO;
 import android.gabriel_izzo_c196_scheduler.DAO.TermDAO_Impl;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
@@ -24,7 +25,6 @@ import android.widget.Toast;
 import java.util.List;
 
 public class TermDetails extends AppCompatActivity {
-
     EditText termTitle;
     EditText termStart;
     EditText termEnd;
@@ -33,13 +33,15 @@ public class TermDetails extends AppCompatActivity {
     String start;
     String end;
     Repository repo;
-
+    RecyclerView allCourses;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         termTitle =findViewById(R.id.termTitleTxt);
         termStart =findViewById(R.id.termStartTxt);
         termEnd =findViewById(R.id.termEndTxt);
@@ -50,6 +52,7 @@ public class TermDetails extends AppCompatActivity {
         termTitle.setText(title);
         termStart.setText(start);
         termEnd.setText(end);
+
 
         repo=new Repository(getApplication());
 

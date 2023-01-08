@@ -33,6 +33,21 @@ public class CourseList extends AppCompatActivity {
         adapter.setCourses(courses);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+            setContentView(R.layout.activity_course_list);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            RecyclerView recyclerView=findViewById(R.id.course_list_recyclerView);
+            Repository repo=new Repository(getApplication());
+            List<Course> courses=repo.getAllCourses();
+            final CourseAdapter adapter=new CourseAdapter(this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter.setCourses(courses);
+    }
+
     public boolean onCreateOptionsMenu (Menu menu){
         getMenuInflater().inflate(R.menu.menu_course_list, menu);
         return true;

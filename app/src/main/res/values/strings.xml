@@ -2,7 +2,7 @@
     <string name="app_name">Gabriel_Izzo_C196_Scheduler</string>
     <string name="term_scheduler">Term Scheduler+</string>
     <string name="assessments">Assessments</string>
-    <string name="enter_term">Enter Term</string>
+    <string name="enter_term">Enter Title</string>
     <string name="term_start">Start Date:</string>
     <string name="save_button">Save</string>
     <string name="term_title">Title:</string>
@@ -21,7 +21,7 @@
     <string name="add">ADD COURSE</string>
     <string name="tl_course_menu">Courses</string>
     <string name="tl_assessment_menu">Assessments</string>
-    <string name="course_list_item_textview">Course List Item TextView</string>
+    <string name="course_date">Course date</string>
     <string name="assessment_list_item_textview">Assessment List Item TextView</string>
     <string name="cd_assessment_menu">Assessments</string>
     <string name="cd_terms_menu">Terms</string>
@@ -49,11 +49,14 @@
     <string name="mm_dd_yyyy">MM/DD/YYYY</string>
     <string name="mm_dd_yyyy1">MM/DD/YYYY</string>
     <string name="title_hint">Enter Title</string>
-    <string name="course_title_lbl">Course Title:</string>
+    <string name="course_title_lbl">Title:</string>
     <string name="end_date_lbl">End Date:</string>
     <string name="status_lbl">Status:</string>
     <string name="status_hint">Not Started, In Progress, Completed</string>
     <string name="instructor_name_lbl">Instructor:</string>
     <string name="update_term_lbl">Update</string>
     <string name="tl_edit_menu">Edit</string>
+    <string name="add_course_button">Add Course Button</string>
+    <string name="course_name">Course Name</string>
+    <string name="all_assessments_title">All Assessments</string>
 </resources>
