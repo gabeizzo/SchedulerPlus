@@ -68,6 +68,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_baseline_playlist_add_24"
         tools:ignore="SpeakableTextPresentCheck"
-        android:contentDescription="@string/add_course_button" />
+        android:contentDescription="@string/add_assessment_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -114,7 +114,22 @@ public class CourseDetails extends AppCompatActivity {
 
     public void shareCourseDetails(MenuItem item) {
         EditText noteToShare = findViewById(R.id.courseNotesTxt);
-        String message = noteToShare.getText().toString();
+        EditText title = findViewById(R.id.courseTitleTxt);
+        EditText start = findViewById(R.id.courseStartTxt);
+        EditText end = findViewById(R.id.courseEndTxt);
+        EditText status = findViewById(R.id.courseStatusTxt);
+        EditText instructor = findViewById(R.id.instructorNameTxt);
+        EditText phone = findViewById(R.id.instructorPhoneTxt);
+        EditText instructorEmail = findViewById(R.id.instructorEmailTxt);
+
+        String message = title.getText().toString() + "\n"
+                + start.getText().toString() + "\n"
+                + end.getText().toString() + "\n"
+                + status.getText().toString() + "\n"
+                + instructor.getText().toString() + "\n"
+                + phone.getText().toString() + "\n"
+                + instructorEmail.getText().toString()+ "\n\n\n"
+                + noteToShare.getText().toString();
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_TEXT, message);
 

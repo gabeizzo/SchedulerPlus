@@ -59,4 +59,8 @@
     <string name="add_course_button">Add Course Button</string>
     <string name="course_name">Course Name</string>
     <string name="all_assessments_title">All Assessments</string>
+    <string name="add_assessment_button">Add Assessment Button</string>
+    <string name="assessment_date">Date:</string>
+    <string name="type_lbl">Type:</string>
+    <string name="assessment_type">Objective, Performance etc.</string>
 </resources>

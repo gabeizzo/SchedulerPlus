@@ -1,5 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.Entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 

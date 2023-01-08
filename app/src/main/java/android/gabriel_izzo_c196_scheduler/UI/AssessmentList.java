@@ -63,7 +63,7 @@ public class AssessmentList extends AppCompatActivity {
     }
 
 
-    public void goToTerms(View view) {
+    public void goToTerms(MenuItem item) {
         Intent intent=new Intent(AssessmentList.this, TermList.class);
         startActivity(intent);
     }
