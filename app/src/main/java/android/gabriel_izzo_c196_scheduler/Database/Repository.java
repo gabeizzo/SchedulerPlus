@@ -14,12 +14,23 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Repository {
+    //DAOs
     private final AssessmentDAO mAssessmentDAO;
     private final CourseDAO mCourseDAO;
     private final TermDAO mTermDAO;
+
+    //Lists of Entity Objects
     private List<Assessment> mAllAssessments;
     private List<Term> mAllTerms;
     private List<Course> mAllCourses;
+
+    //Entities
+    private Term term;
+    private Course course;
+
+    //Utilities
+    private boolean isNewRecord;
+    private String rowCountString;
 
 
     private static final int NUMBER_OF_THREADS=4;
@@ -174,6 +185,122 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
+    }
+    public String getRowCount(String table) {
+        databaseExecutor.execute(() -> {
+            if (table == "term") {
+                int count = mTermDAO.getRowCount()+1;
+                rowCountString = String.valueOf(count);
+            } else if (table == "course") {
+                int count = mCourseDAO.getRowCount()+1;
+                rowCountString = String.valueOf(count);
+            }
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rowCountString;
+    }
+
+    public List<Course> getAssociatedCourses(String term) {
+        databaseExecutor.execute(() -> {
+            mAllCourses = mCourseDAO.getAllAssociatedCourses(Integer.parseInt(term));
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mAllCourses;
+    }
+
+    public List<Assessment> getAssocAssessments(String assessment) {
+        databaseExecutor.execute(() -> {
+            mAllAssessments = mAssessmentDAO.getAllAssocAssessments(Integer.parseInt(assessment));
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mAllAssessments;
+    }
+
+    public boolean isNewRecord(String table, int id) {
+        databaseExecutor.execute(() -> {
+            if (table == "term") {
+                if (mTermDAO.isNewRecord(id) == 0) {
+                    isNewRecord = true;
+                } else {
+                    isNewRecord = false;
+                }
+            } else if (table == "course") {
+                if (mCourseDAO.isNewRecord(id) == 0) {
+                    isNewRecord = true;
+                } else {
+                    isNewRecord = false;
+                }
+            } else if (table == "assessment") {
+                if (mAssessmentDAO.isNewRecord(id) == 0) {
+                    isNewRecord = true;
+                } else {
+                    isNewRecord = false;
+                }
+            }
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isNewRecord;
+    }
+
+    public int getAssociatedAssessments(int id) {
+        databaseExecutor.execute(() -> {
+            mAllAssessments = mAssessmentDAO.getAllAssocAssessments(id);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mAllAssessments.size();
+    }
+
+    public Term getTermByID(int id) {
+        databaseExecutor.execute(() -> {
+            term = mTermDAO.getTermByID(id);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return term;
+    }
+
+    public Course getCourseByID(int id) {
+        databaseExecutor.execute(() -> {
+            course = mCourseDAO.getCourseByID(id);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return course;
     }
 }
 

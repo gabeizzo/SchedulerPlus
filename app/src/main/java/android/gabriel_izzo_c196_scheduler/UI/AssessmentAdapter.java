@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
-import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
@@ -35,11 +36,18 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     public void onClick(View view){
                         int position=getAdapterPosition();
                         final Assessment current=mAssessments.get(position);
+
+                        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+                        String startDate = dateFormatter.format(current.getAssessmentStartDate());
+                        String endDate = dateFormatter.format(current.getAssessmentEndDate());
+
                         Intent intent=new Intent(context, AssessmentDetails.class);
                         intent.putExtra("id", current.getAssessmentID());
                         intent.putExtra("title", current.getAssessmentTitle());
-                        intent.putExtra("date", current.getAssessmentDate());
+                        intent.putExtra("start", startDate);
+                        intent.putExtra("end", endDate);
                         intent.putExtra("type", current.getAssessmentType());
+                        intent.putExtra("courseID", String.valueOf(current.getCourseID()));
                         context.startActivity(intent);
 
                     }
@@ -69,9 +77,10 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
             if(mAssessments!=null){
                 String title = current.getAssessmentTitle();
-                String date = current.getAssessmentDate();
+                Date start = current.getAssessmentStartDate();
+                Date end = current.getAssessmentEndDate();
                 String type = current.getAssessmentType();
-                holder.assessmentDateView.setText(new StringBuilder().append(date).append("\n").append(type).toString());
+                holder.assessmentDateView.setText(new StringBuilder().append(type).append("\n(").append(start).append(" - ").append(end).append(")").toString());
                 holder.assessmentNameView.setText(title);
             }
             else {
@@ -98,9 +107,10 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 Intent intent=new Intent(context, AssessmentDetails.class);
                 intent.putExtra("id", current.getAssessmentID());
                 intent.putExtra("title", current.getAssessmentTitle());
-                intent.putExtra("date", current.getAssessmentDate());
+                intent.putExtra("start", current.getAssessmentStartDate());
+                intent.putExtra("end", current.getAssessmentEndDate());
                 intent.putExtra("type", current.getAssessmentType());
-
+                intent.putExtra("courseID", String.valueOf(current.getCourseID()));
                 context.startActivity(intent);
             });
 

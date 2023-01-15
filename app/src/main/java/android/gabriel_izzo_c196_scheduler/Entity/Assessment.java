@@ -1,8 +1,12 @@
 package android.gabriel_izzo_c196_scheduler.Entity;
 
-import androidx.room.ColumnInfo;
+import android.gabriel_izzo_c196_scheduler.Utility.Converter;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
 
 @Entity(tableName="assessments")
 public class Assessment {
@@ -10,13 +14,22 @@ public class Assessment {
     private int assessmentID;
     private String assessmentType;
     private String assessmentTitle;
-    private String assessmentDate;
 
-    public Assessment(Integer assessmentID, String assessmentType, String assessmentTitle, String assessmentDate){
+    @TypeConverters(Converter.class)
+    private Date assessmentStartDate;
+
+    @TypeConverters(Converter.class)
+    private Date assessmentEndDate;
+
+    private Integer courseID;
+
+    public Assessment(Integer assessmentID, String assessmentTitle,  Date assessmentStartDate, Date assessmentEndDate, String assessmentType, Integer courseID){
         this.assessmentID = assessmentID;
         this.assessmentType = assessmentType;
         this.assessmentTitle = assessmentTitle;
-        this.assessmentDate = assessmentDate;
+        this.assessmentStartDate = assessmentStartDate;
+        this.assessmentEndDate = assessmentEndDate;
+        this.courseID = courseID;
 
     }
 
@@ -24,10 +37,20 @@ public class Assessment {
     public String toString(){
         return "Assessment{" +
                 "assessmentID=" + assessmentID +
-                ", assessmentType=" + assessmentType +
                 ", assessmentTitle=" + assessmentTitle +
-                ", assessmentDate=" + assessmentDate +
+                ", assessmentStartDate=" + assessmentStartDate +
+                ", assessmentEndDate=" + assessmentEndDate +
+                ", assessmentType=" + assessmentType +
+                ", courseID=" + courseID +
                 '}';
+    }
+
+    public Integer getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(Integer courseID) {
+        this.courseID = courseID;
     }
 
     public int getAssessmentID() {
@@ -54,11 +77,18 @@ public class Assessment {
         this.assessmentTitle = assessmentTitle;
     }
 
-    public String getAssessmentDate() {
-        return assessmentDate;
+    public Date getAssessmentStartDate() {
+        return assessmentStartDate;
     }
 
-    public void setAssessmentDate(String assessmentDate) {
-        this.assessmentDate = assessmentDate;
+    public void setAssessmentStartDate(Date assessmentStartDate) {
+        this.assessmentStartDate = assessmentStartDate;
+    }
+    public Date getAssessmentEndDate() {
+        return assessmentEndDate;
+    }
+
+    public void setAssessmentEndDate(Date assessmentEndDate) {
+        this.assessmentEndDate = assessmentEndDate;
     }
 }

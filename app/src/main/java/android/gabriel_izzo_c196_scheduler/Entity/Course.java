@@ -1,22 +1,33 @@
 package android.gabriel_izzo_c196_scheduler.Entity;
 
+import android.gabriel_izzo_c196_scheduler.Utility.Converter;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
 
 @Entity(tableName="courses")
 public class Course {
     @PrimaryKey(autoGenerate = true)
     private int courseID;
     private String courseTitle;
-    private String courseStart;
-    private String courseEnd;
+
+    @TypeConverters(Converter.class)
+    private Date courseStart;
+
+    @TypeConverters(Converter.class)
+    private Date courseEnd;
+
     private String courseStatus;
     private String instructorName;
     private String instructorPhone;
     private String instructorEmail;
     private String courseNote;
+    private int termID;
 
-    public Course(int courseID, String courseTitle, String courseStart, String courseEnd, String courseStatus, String instructorName, String instructorPhone, String instructorEmail, String courseNote){
+    public Course(int courseID, String courseTitle, Date courseStart, Date courseEnd, String courseStatus, String instructorName, String instructorPhone, String instructorEmail, String courseNote, int termID){
         this.courseID= courseID;
         this.courseTitle = courseTitle;
         this.courseStart = courseStart;
@@ -26,6 +37,7 @@ public class Course {
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
         this.courseNote = courseNote;
+        this.termID = termID;
 
 
     }
@@ -41,7 +53,16 @@ public class Course {
                 ", instructorPhone=" + instructorPhone +
                 ", instructorEmail=" + instructorEmail +
                 ", courseNote=" + courseNote +
+                ", termID=" + termID +
                 '}';
+    }
+
+    public int getTermID() {
+        return termID;
+    }
+
+    public void setTermID(int termID) {
+        this.termID = termID;
     }
 
     public int getCourseID() {
@@ -60,17 +81,17 @@ public class Course {
         this.courseTitle = courseTitle;
     }
 
-    public String getCourseStart() {
+    public Date getCourseStart() {
         return courseStart;
     }
-    public void setCourseStart(String courseStart) {
+    public void setCourseStart(Date courseStart) {
         this.courseStart = courseStart;
     }
 
-    public String getCourseEnd() {
+    public Date getCourseEnd() {
         return courseEnd;
     }
-    public void setCourseEnd(String courseEnd) {
+    public void setCourseEnd(Date courseEnd) {
         this.courseEnd = courseEnd;
     }
 

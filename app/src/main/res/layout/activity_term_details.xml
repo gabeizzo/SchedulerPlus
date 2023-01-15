@@ -114,16 +114,27 @@
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
+
                 <EditText
                     android:id="@+id/termStartTxt"
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="48dp"
                     android:hint="@string/edit_start"
+                    android:enabled="false"
                     android:importantForAutofill="no"
                     android:inputType="date"
                     android:textColor="@color/triton_dark_blue"
                     android:textColorHint="#757575"
                     android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/startCalView"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_month" />
+
 
             </LinearLayout>
 
@@ -144,7 +155,8 @@
 
                 <EditText
                     android:id="@+id/termEndTxt"
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
+                    android:enabled="false"
                     android:layout_height="48dp"
                     android:hint="@string/edit_end"
                     android:importantForAutofill="no"
@@ -152,6 +164,15 @@
                     android:textColor="@color/triton_dark_blue"
                     android:textColorHint="#757575"
                     android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/endCalView"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_month" />
+
             </LinearLayout>
 
             <TextView

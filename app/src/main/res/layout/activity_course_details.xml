@@ -70,11 +70,19 @@
 
                 <EditText
                     android:id="@+id/courseStartTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="180dp"
+                    android:layout_height="48dp"
+                    android:enabled="false"
                     android:hint="@string/mm_dd_yyyy1"
                     android:inputType="date"
                     android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/startCalView"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_month" />
 
             </LinearLayout>
 
@@ -95,11 +103,19 @@
 
                 <EditText
                     android:id="@+id/courseEndTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="180dp"
+                    android:layout_height="48dp"
+                    android:enabled="false"
                     android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"
                     android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/endCalView"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_month" />
 
             </LinearLayout>
 
@@ -118,13 +134,11 @@
                     android:textColor="@color/triton_dark_blue"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/courseStatusTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/status_hint"
-                    android:inputType="text"
-                    android:textSize="14sp" />
+                <Spinner
+                    android:id="@+id/course_status_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 

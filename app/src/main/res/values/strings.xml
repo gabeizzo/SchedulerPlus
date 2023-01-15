@@ -52,7 +52,7 @@
     <string name="course_title_lbl">Title:</string>
     <string name="end_date_lbl">End Date:</string>
     <string name="status_lbl">Status:</string>
-    <string name="status_hint">Not Started, In Progress, Completed</string>
+    <string name="status_hint">Select Course Status</string>
     <string name="instructor_name_lbl">Instructor:</string>
     <string name="update_term_lbl">Update</string>
     <string name="tl_edit_menu">Edit</string>
@@ -60,7 +60,18 @@
     <string name="course_name">Course Name</string>
     <string name="all_assessments_title">All Assessments</string>
     <string name="add_assessment_button">Add Assessment Button</string>
-    <string name="assessment_date">Date:</string>
+    <string name="ad_start_date_lbl">Start Date:</string>
+    <string name="ad_end_date_lbl">End Date:</string>
     <string name="type_lbl">Type:</string>
     <string name="assessment_type">Objective, Performance etc.</string>
+    <string-array name="type_array">
+        <item>Objective Assessment</item>
+        <item>Performance Assessment</item>
+    </string-array>
+    <string-array name="status_array">
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Planned to Take</item>
+        <item>Dropped</item>
+    </string-array>
 </resources>

@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
@@ -32,22 +34,27 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             termItemLayout = itemView.findViewById(R.id.term_item_layout);
             allCoursesRecycler = itemView.findViewById(R.id.allCourses);
 
-            itemView.setOnClickListener(view -> {
-              int position=getAdapterPosition();
-              final Term current=mTerms.get(position);
-              Intent intent=new Intent(context, TermDetails.class);
-              intent.putExtra("id", current.getTermID());
-              intent.putExtra("title", current.getTermTitle());
-              intent.putExtra("start", current.getTermStart());
-              intent.putExtra("end", current.getTermEnd());
-              context.startActivity(intent);
-            });
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    final Term current = mTerms.get(position);
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+                    String termStart = dateFormatter.format(current.getTermStart());
+                    String termEnd = dateFormatter.format(current.getTermEnd());
+                    Intent intent = new Intent(context, TermDetails.class);
+                    intent.putExtra("id", current.getTermID());
+                    intent.putExtra("title", current.getTermTitle());
+                    intent.putExtra("start", termStart);
+                    intent.putExtra("end", termEnd);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
     private List<Term> mTerms;
-    private List<Course> mCourses;
     private final Context context;
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
@@ -60,19 +67,19 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     }
     @NonNull
     @Override
-    public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView=mInflater.inflate(R.layout.term_list_item, parent, false);
         return new TermViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
         final Term current=mTerms.get(position);
 
         if(mTerms!=null){
             String name = current.getTermTitle();
-            String start = current.getTermStart();
-            String end = current.getTermEnd();
+            Date start = current.getTermStart();
+            Date end = current.getTermEnd();
             holder.termTitleView.setText(name);
             holder.termDateView.setText(new StringBuilder().append("(").append(start).append(" - ").append(end).append(")").toString());
 

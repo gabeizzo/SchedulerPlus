@@ -1,39 +1,48 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Slide;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.ReceiverCallNotAllowedException;
-import android.gabriel_izzo_c196_scheduler.DAO.TermDAO;
-import android.gabriel_izzo_c196_scheduler.DAO.TermDAO_Impl;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
-import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TermDetails extends AppCompatActivity {
+    int termID;
     EditText termTitle;
     EditText termStart;
     EditText termEnd;
-    int termID;
-    String title;
-    String start;
-    String end;
+
+    Date start;
+    ImageView startCalView;
+    final Calendar startCal = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener startCalListener;
+
+    Date end;
+    ImageView endCalView;
+    final Calendar endCal = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener endCalListener;
+
     Repository repo;
+
     RecyclerView allCourses;
+    RecyclerView termCourses;
 
 
     @Override
@@ -42,26 +51,83 @@ public class TermDetails extends AppCompatActivity {
         setContentView(R.layout.activity_term_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        termTitle =findViewById(R.id.termTitleTxt);
-        termStart =findViewById(R.id.termStartTxt);
-        termEnd =findViewById(R.id.termEndTxt);
-        termID=getIntent().getIntExtra("id", -1);
-        title =getIntent().getStringExtra("title");
-        start =getIntent().getStringExtra("start");
-        end =getIntent().getStringExtra("end");
-        termTitle.setText(title);
-        termStart.setText(start);
-        termEnd.setText(end);
+        termTitle = findViewById(R.id.termTitleTxt);
+        termStart = findViewById(R.id.termStartTxt);
+        termEnd = findViewById(R.id.termEndTxt);
+        allCourses = findViewById(R.id.allCourses);
+        termCourses = findViewById(R.id.addedCourses);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
+        termID = getIntent().getIntExtra("id", -1);
+        termTitle.setText(getIntent().getStringExtra("title"));
+        termStart.setText(getIntent().getStringExtra("start"));
+        termEnd.setText(getIntent().getStringExtra("end"));
 
+        displayCalendar();
 
-        repo=new Repository(getApplication());
+        repo = new Repository(getApplication());
 
-        if(termID != -1){
+        if (termID != -1) {
             Button saveButton = findViewById(R.id.saveButton);
             saveButton.setText(R.string.update_term_lbl);
         }
 
     }
+
+    private void displayCalendar() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+
+        startCalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(
+                        TermDetails.this,
+                        startCalListener,
+                        startCal.get(Calendar.YEAR),
+                        startCal.get(Calendar.MONTH),
+                        startCal.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
+
+        startCalListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                startCal.set(Calendar.YEAR, year);
+                startCal.set(Calendar.MONTH, month);
+                startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                termStart.setText(dateFormatter.format(startCal.getTime()));
+            }
+        };
+
+        endCalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(
+                        TermDetails.this,
+                        endCalListener,
+                        endCal.get(Calendar.YEAR),
+                        endCal.get(Calendar.MONTH),
+                        endCal.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
+
+        endCalListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                endCal.set(Calendar.YEAR, year);
+                endCal.set(Calendar.MONTH, month);
+                endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                termEnd.setText(dateFormatter.format(endCal.getTime()));
+            }
+        };
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
         //Inflate the menu; this adds items to the action bar if it is present
@@ -74,6 +140,7 @@ public class TermDetails extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -84,7 +151,7 @@ public class TermDetails extends AppCompatActivity {
         try {
             if (termID == -1) {
                 int newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
-                term = new Term(newID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                term = new Term(newID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
                 repo.insert(term);
 
                 Toast toast = Toast.makeText(this, "New Term Added", Toast.LENGTH_LONG);
@@ -95,7 +162,7 @@ public class TermDetails extends AppCompatActivity {
 
 
             } else {
-                term = new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                term = new Term(termID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
                 repo.update(term);
 
                 Toast toast = Toast.makeText(this, "Term Updated", Toast.LENGTH_LONG);
@@ -117,7 +184,7 @@ public class TermDetails extends AppCompatActivity {
         Term term;
         try {
             if (termID != -1) {
-                term = new Term(termID, termTitle.getText().toString(), termStart.getText().toString(), termEnd.getText().toString());
+                term = new Term(termID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
                 repo.delete(term);
 
                 Toast toast = Toast.makeText(this, "Term Deleted Successfully", Toast.LENGTH_LONG);

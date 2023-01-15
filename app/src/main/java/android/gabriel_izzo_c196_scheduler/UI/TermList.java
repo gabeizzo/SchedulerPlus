@@ -53,10 +53,21 @@ public class TermList extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
         return true;
+            case R.id.tl_assessments:
+                intent = new Intent(this, AssessmentList.class);
+                this.startActivity(intent);
+                this.finish();
+                return true;
+            case R.id.tl_courses:
+                intent = new Intent(this, CourseList.class);
+                this.startActivity(intent);
+                this.finish();
+                return true;
     }
     return super.onOptionsItemSelected(item);
 }

@@ -1,17 +1,26 @@
 package android.gabriel_izzo_c196_scheduler.Entity;
 
+import android.gabriel_izzo_c196_scheduler.Utility.Converter;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
 
 @Entity(tableName="terms")
 public class Term {
     @PrimaryKey(autoGenerate = true)
     private int termID;
     private String termTitle;
-    private String termStart;
-    private String termEnd;
 
-    public Term(int termID, String termTitle, String termStart, String termEnd){
+    @TypeConverters(Converter.class)
+    private Date termStart;
+
+    @TypeConverters(Converter.class)
+    private Date termEnd;
+
+    public Term(int termID, String termTitle, Date termStart, Date termEnd){
         this.termID = termID;
         this.termTitle = termTitle;
         this.termStart = termStart;
@@ -44,19 +53,19 @@ public class Term {
         this.termTitle = termTitle;
     }
 
-    public String getTermStart() {
+    public Date getTermStart() {
         return termStart;
     }
 
-    public void setTermEnd(String termEnd) {
+    public void setTermEnd(Date termEnd) {
         this.termEnd = termEnd;
     }
 
-    public String getTermEnd(){
+    public Date getTermEnd(){
         return termEnd;
     }
 
-    public void setTermStart(String termStart) {
+    public void setTermStart(Date termStart) {
         this.termStart = termStart;
     }
 }

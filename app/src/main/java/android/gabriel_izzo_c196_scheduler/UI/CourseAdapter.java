@@ -1,5 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
@@ -14,6 +15,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
@@ -43,6 +47,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     intent.putExtra("phone", current.getInstructorPhone());
                     intent.putExtra("email", current.getInstructorEmail());
                     intent.putExtra("notes", current.getCourseNote());
+                    intent.putExtra("termID", String.valueOf(current.getTermID()));
                     context.startActivity(intent);
 
                 }
@@ -53,6 +58,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private final Context context;
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
+    final Calendar startCal = Calendar.getInstance();
+    final Calendar endCal = Calendar.getInstance();
+
 
     public CourseAdapter(Context context){
         mInflater=LayoutInflater.from(context);
@@ -65,15 +73,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         return new CourseViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CourseAdapter.CourseViewHolder holder, int position) {
         final Course current = mCourses.get(position);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
         if(mCourses!=null){
             String title = current.getCourseTitle();
-            String start = current.getCourseStart();
-            String end = current.getCourseEnd();
-            holder.courseDateView.setText(new StringBuilder().append("(").append(start).append(" - ").append(end).append(")").toString());
+            Date start = current.getCourseStart();
+            Date end = current.getCourseEnd();
+            holder.courseDateView.setText(new StringBuilder().append("(").append(dateFormatter.format(startCal.getTime())).append(" - ").append(dateFormatter.format(endCal.getTime())).append(")").toString());
             holder.courseNameView.setText(title);
         }
         else {
@@ -107,11 +117,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             intent.putExtra("phone", current.getInstructorPhone());
             intent.putExtra("email", current.getInstructorEmail());
             intent.putExtra("notes", current.getCourseNote());
+            intent.putExtra("termID", String.valueOf(current.getTermID()));
 
             context.startActivity(intent);
         });
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void setCourses(List<Course> courses){
         mCourses=courses;
         notifyDataSetChanged();
