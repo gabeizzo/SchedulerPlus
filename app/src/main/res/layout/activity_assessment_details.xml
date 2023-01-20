@@ -65,12 +65,20 @@
 
             <EditText
                 android:id="@+id/assessmentStartTxt"
-                android:layout_width="match_parent"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
+                android:enabled="false"
                 android:hint="@string/mm_dd_yyyy1"
                 android:inputType="date"
                 android:textSize="14sp"
                 tools:ignore="DuplicateSpeakableTextCheck" />
+            <ImageView
+                android:id="@+id/startCalView"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_month" />
 
         </LinearLayout>
 
@@ -93,12 +101,23 @@
 
             <EditText
                 android:id="@+id/assessmentEndTxt"
-                android:layout_width="match_parent"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
+                android:enabled="false"
                 android:hint="@string/mm_dd_yyyy"
                 android:inputType="date"
                 android:textColorHint="#757575"
                 android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/endCalView"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_month" />
+
+
+
         </LinearLayout>
 
         <LinearLayout

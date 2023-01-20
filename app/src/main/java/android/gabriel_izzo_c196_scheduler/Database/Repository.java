@@ -217,7 +217,7 @@ public class Repository {
         return mAllCourses;
     }
 
-    public List<Assessment> getAssocAssessments(String assessment) {
+    public List<Assessment> getAssociatedAssessments(String assessment) {
         databaseExecutor.execute(() -> {
             mAllAssessments = mAssessmentDAO.getAllAssocAssessments(Integer.parseInt(assessment));
         });

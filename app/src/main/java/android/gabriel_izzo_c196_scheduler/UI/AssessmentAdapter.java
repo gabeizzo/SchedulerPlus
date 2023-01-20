@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 assessmentNameView =itemView.findViewById(R.id.textView_assessment_title);
                 assessmentDateView = itemView.findViewById(R.id.textView_assessment_date);
                 assessmentItemLayout = itemView.findViewById(R.id.assessment_item_layout);
-                itemView.setOnClickListener(new View.OnClickListener(){
+               /* itemView.setOnClickListener(new View.OnClickListener(){
 
                     @Override
                     public void onClick(View view){
@@ -51,7 +52,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                         context.startActivity(intent);
 
                     }
-                });
+                });*/
             }
         }
         private List<Assessment> mAssessments;
@@ -59,28 +60,32 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final LayoutInflater mInflater;
         private int selectedPosition = -1;
 
+        final Calendar startCal = Calendar.getInstance();
+        final Calendar endCal = Calendar.getInstance();
+
         public AssessmentAdapter(Context context){
             mInflater=LayoutInflater.from(context);
             this.context=context;
         }
         @NonNull
         @Override
-        public AssessmentAdapter.AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public AssessmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View itemView=mInflater.inflate(R.layout.assessment_list_item, parent, false);
             return new AssessmentViewHolder(itemView);
         }
 
         @SuppressLint("SetTextI18n")
         @Override
-        public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull AssessmentViewHolder holder, int position) {
             final Assessment current = mAssessments.get(position);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
             if(mAssessments!=null){
                 String title = current.getAssessmentTitle();
                 Date start = current.getAssessmentStartDate();
                 Date end = current.getAssessmentEndDate();
                 String type = current.getAssessmentType();
-                holder.assessmentDateView.setText(new StringBuilder().append(type).append("\n(").append(start).append(" - ").append(end).append(")").toString());
+                holder.assessmentDateView.setText(new StringBuilder().append(type).append("\n(").append(dateFormatter.format(start)).append(" - ").append(dateFormatter.format(end)).append(")").toString());
                 holder.assessmentNameView.setText(title);
             }
             else {
@@ -104,11 +109,14 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     notifyItemChanged(selectedPosition);
                 selectedPosition = holder.getAdapterPosition();
                 notifyItemChanged(selectedPosition);
+                String assessmentStart = dateFormatter.format(current.getAssessmentStartDate());
+                String assessmentEnd = dateFormatter.format(current.getAssessmentEndDate());
+
                 Intent intent=new Intent(context, AssessmentDetails.class);
                 intent.putExtra("id", current.getAssessmentID());
                 intent.putExtra("title", current.getAssessmentTitle());
-                intent.putExtra("start", current.getAssessmentStartDate());
-                intent.putExtra("end", current.getAssessmentEndDate());
+                intent.putExtra("start", assessmentStart);
+                intent.putExtra("end", assessmentEnd);
                 intent.putExtra("type", current.getAssessmentType());
                 intent.putExtra("courseID", String.valueOf(current.getCourseID()));
                 context.startActivity(intent);

@@ -31,7 +31,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             courseNameView =itemView.findViewById(R.id.textView_course_name);
             courseDateView = itemView.findViewById(R.id.textView_course_date);
             courseItemLayout = itemView.findViewById(R.id.course_item_layout);
-            itemView.setOnClickListener(new View.OnClickListener(){
+           /* itemView.setOnClickListener(new View.OnClickListener(){
 
                 @Override
                 public void onClick(View view){
@@ -51,7 +51,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     context.startActivity(intent);
 
                 }
-            });
+            });*/
         }
     }
     private List<Course> mCourses;
@@ -83,7 +83,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             String title = current.getCourseTitle();
             Date start = current.getCourseStart();
             Date end = current.getCourseEnd();
-            holder.courseDateView.setText(new StringBuilder().append("(").append(dateFormatter.format(startCal.getTime())).append(" - ").append(dateFormatter.format(endCal.getTime())).append(")").toString());
+            holder.courseDateView.setText(new StringBuilder().append("(").append(dateFormatter.format(start)).append(" - ").append(dateFormatter.format(end)).append(")").toString());
             holder.courseNameView.setText(title);
         }
         else {
@@ -107,11 +107,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                 notifyItemChanged(selectedPosition);
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(selectedPosition);
+            String courseStart = dateFormatter.format(current.getCourseStart());
+            String courseEnd = dateFormatter.format(current.getCourseEnd());
+
             Intent intent=new Intent(context, CourseDetails.class);
             intent.putExtra("id", current.getCourseID());
             intent.putExtra("title", current.getCourseTitle());
-            intent.putExtra("start", current.getCourseStart());
-            intent.putExtra("end", current.getCourseEnd());
+            intent.putExtra("start", courseStart);
+            intent.putExtra("end", courseEnd);
             intent.putExtra("status", current.getCourseStatus());
             intent.putExtra("instructor", current.getInstructorName());
             intent.putExtra("phone", current.getInstructorPhone());

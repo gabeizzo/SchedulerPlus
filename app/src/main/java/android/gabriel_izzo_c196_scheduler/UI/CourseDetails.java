@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -27,7 +29,6 @@ import java.util.Date;
 
 public class CourseDetails extends AppCompatActivity {
 
-    int courseID;
     EditText courseTitle;
     EditText courseStart;
     EditText courseEnd;
@@ -35,14 +36,17 @@ public class CourseDetails extends AppCompatActivity {
     EditText instructorName;
     EditText instructorPhone;
     EditText instructorEmail;
+    RecyclerView courseAssessmentsRecyclerView;
     EditText courseNotes;
-    String title;
 
+    int courseID;
+    String title;
     String status;
     String name;
     String phone;
     String email;
     String notes;
+
     Repository repo;
 
     Date start;
@@ -82,6 +86,9 @@ public class CourseDetails extends AppCompatActivity {
         instructorName = findViewById(R.id.instructorNameTxt);
         instructorPhone = findViewById(R.id.instructorPhoneTxt);
         instructorEmail = findViewById(R.id.instructorEmailTxt);
+        courseAssessmentsRecyclerView = findViewById(R.id.courseAssessmentsRecyclerView);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
         courseNotes = findViewById(R.id.courseNotesTxt);
         courseID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -98,8 +105,15 @@ public class CourseDetails extends AppCompatActivity {
         instructorEmail.setText(email);
         courseNotes.setText(notes);
 
+        displayCalendar();
+
 
         repo = new Repository(getApplication());
+
+        final AssessmentAdapter adapter = new AssessmentAdapter(this);
+        courseAssessmentsRecyclerView.setAdapter(adapter);
+        courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
     }
 
     private void displayCalendar() {

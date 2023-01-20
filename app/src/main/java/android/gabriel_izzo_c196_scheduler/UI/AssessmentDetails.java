@@ -1,5 +1,7 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
@@ -10,14 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +34,19 @@ public class AssessmentDetails extends AppCompatActivity {
     EditText assessmentEnd;
     Spinner assessmentTypeSpinner;
     String title;
-    Date start;
-    Date end;
     String type;
     Integer courseID;
     Repository repo;
+
+    Date start;
+    ImageView startCalView;
+    final Calendar startCal = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener startCalListener;
+
+    Date end;
+    ImageView endCalView;
+    final Calendar endCal = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener endCalListener;
 
 
     @Override
@@ -65,6 +79,8 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentTitle = findViewById(R.id.assessmentTitleTxt);
         assessmentStart = findViewById(R.id.assessmentStartTxt);
         assessmentEnd = findViewById(R.id.assessmentEndTxt);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
 
         assessmentID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -73,8 +89,64 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentTitle.setText(title);
         assessmentStart.setText(getIntent().getStringExtra("start"));
         assessmentEnd.setText(getIntent().getStringExtra("end"));
+        displayCalendar();
 
         repo = new Repository(getApplication());
+
+    }
+
+
+    private void displayCalendar() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+
+        startCalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(
+                        AssessmentDetails.this,
+                        startCalListener,
+                        startCal.get(Calendar.YEAR),
+                        startCal.get(Calendar.MONTH),
+                        startCal.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
+
+        startCalListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                startCal.set(Calendar.YEAR, year);
+                startCal.set(Calendar.MONTH, month);
+                startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                assessmentStart.setText(dateFormatter.format(startCal.getTime()));
+            }
+        };
+
+        endCalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(
+                        AssessmentDetails.this,
+                        endCalListener,
+                        endCal.get(Calendar.YEAR),
+                        endCal.get(Calendar.MONTH),
+                        endCal.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
+
+        endCalListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                endCal.set(Calendar.YEAR, year);
+                endCal.set(Calendar.MONTH, month);
+                endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                assessmentEnd.setText(dateFormatter.format(endCal.getTime()));
+            }
+        };
     }
     /*
     public static void selectSpinnerItemByValue(Spinner spnr, long value){
@@ -113,6 +185,8 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentTitle = findViewById(R.id.assessmentTitleTxt);
         assessmentStart = findViewById(R.id.assessmentStartTxt);
         assessmentEnd = findViewById(R.id.assessmentEndTxt);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
 
         assessmentID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -123,7 +197,7 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentEnd.setText(getIntent().getStringExtra("end"));
 
 
-
+        displayCalendar();
 
         repo = new Repository(getApplication());
     }
@@ -160,8 +234,6 @@ public class AssessmentDetails extends AppCompatActivity {
         Assessment assessment;
         Spinner assessmentTypeSpinner = (Spinner)findViewById(R.id.type_spinner);
         String type = assessmentTypeSpinner.getSelectedItem().toString();
-
-
 
         if (assessmentID == -1) {
             int newID = repo.getAllAssessments().get(repo.getAllAssessments().size() - 1).getAssessmentID() + 1;

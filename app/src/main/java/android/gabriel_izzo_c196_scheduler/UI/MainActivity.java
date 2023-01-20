@@ -11,6 +11,8 @@ import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.View;
 
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this, TermList.class);
         startActivity(intent);
         Repository repo=new Repository(getApplication());
-        Term term=new Term(1,"Spring 2023", new Date(01/01/2023), new Date(01/06/2023));
+        Term term=new Term(1,"Spring 2023", new Date(2023,1,1), new Date(2023, 6, 1));
         repo.insert(term);
         Assessment assessment=new Assessment(1,"ABM2 — ABM2 TASK 1: MOBILE APPLICATION DEVELOPMENT",new Date(01/01/2021),new Date(01/06/2021),"Objective Assessment",1);
         repo.insert(assessment);

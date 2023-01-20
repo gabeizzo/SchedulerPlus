@@ -1,5 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         private final TextView termDateView;
         private final ConstraintLayout termItemLayout;
         private final RecyclerView allCoursesRecycler;
+        private final RecyclerView addedCoursesRecycler;
 
         private TermViewHolder (View itemView){
             super(itemView);
@@ -33,24 +36,25 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             termDateView=itemView.findViewById(R.id.textView_term_date);
             termItemLayout = itemView.findViewById(R.id.term_item_layout);
             allCoursesRecycler = itemView.findViewById(R.id.allCourses);
+            addedCoursesRecycler = itemView.findViewById(R.id.addedCourses);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    final Term current = mTerms.get(position);
-                    SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-                    String termStart = dateFormatter.format(current.getTermStart());
-                    String termEnd = dateFormatter.format(current.getTermEnd());
-                    Intent intent = new Intent(context, TermDetails.class);
-                    intent.putExtra("id", current.getTermID());
-                    intent.putExtra("title", current.getTermTitle());
-                    intent.putExtra("start", termStart);
-                    intent.putExtra("end", termEnd);
-                    context.startActivity(intent);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = getAdapterPosition();
+//                    final Term current = mTerms.get(position);
+//                    SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+//                    String termStart = dateFormatter.format(current.getTermStart());
+//                    String termEnd = dateFormatter.format(current.getTermEnd());
+//                    Intent intent = new Intent(context, TermDetails.class);
+//                    intent.putExtra("id", current.getTermID());
+//                    intent.putExtra("title", current.getTermTitle());
+//                    intent.putExtra("start", termStart);
+//                    intent.putExtra("end", termEnd);
+//                    context.startActivity(intent);
+//                }
+          //  });
         }
     }
 
@@ -59,6 +63,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
 
+    final Calendar startCal = Calendar.getInstance();
+    final Calendar endCal = Calendar.getInstance();
 
     public TermAdapter(Context context){
         mInflater=LayoutInflater.from(context);
@@ -75,13 +81,14 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     @Override
     public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
         final Term current=mTerms.get(position);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
         if(mTerms!=null){
             String name = current.getTermTitle();
             Date start = current.getTermStart();
             Date end = current.getTermEnd();
             holder.termTitleView.setText(name);
-            holder.termDateView.setText(new StringBuilder().append("(").append(start).append(" - ").append(end).append(")").toString());
+            holder.termDateView.setText(new StringBuilder().append("(").append(dateFormatter.format(start)).append(" - ").append(dateFormatter.format(end)).append(")").toString());
 
         }
         else{
@@ -104,11 +111,13 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                 notifyItemChanged(selectedPosition);
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(selectedPosition);
+            String termStart = dateFormatter.format(current.getTermStart());
+            String termEnd = dateFormatter.format(current.getTermEnd());
             Intent intent=new Intent(context, TermDetails.class);
             intent.putExtra("id", current.getTermID());
             intent.putExtra("title", current.getTermTitle());
-            intent.putExtra("start", current.getTermStart());
-            intent.putExtra("end", current.getTermEnd());
+            intent.putExtra("start", termStart);
+            intent.putExtra("end", termEnd);
             context.startActivity(intent);
         });
     }
