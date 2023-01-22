@@ -32,7 +32,7 @@ public class CourseDetails extends AppCompatActivity {
     EditText courseTitle;
     EditText courseStart;
     EditText courseEnd;
-    Spinner courseStatus;
+    Spinner courseStatusSpinner;
     EditText instructorName;
     EditText instructorPhone;
     EditText instructorEmail;
@@ -67,12 +67,13 @@ public class CourseDetails extends AppCompatActivity {
 
         Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseStatusSpinner.setAdapter(courseAdapter);
         courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String status = adapterView.getItemAtPosition(i).toString();
+
             }
 
             @Override
@@ -80,6 +81,7 @@ public class CourseDetails extends AppCompatActivity {
 
             }
         });
+
         courseTitle = findViewById(R.id.courseTitleTxt);
         courseStart = findViewById(R.id.courseStartTxt);
         courseEnd = findViewById(R.id.courseEndTxt);
@@ -90,6 +92,7 @@ public class CourseDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         courseNotes = findViewById(R.id.courseNotesTxt);
+
         courseID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
         status = getIntent().getStringExtra("status");
@@ -97,6 +100,7 @@ public class CourseDetails extends AppCompatActivity {
         phone = getIntent().getStringExtra("phone");
         email = getIntent().getStringExtra("email");
         notes = getIntent().getStringExtra("notes");
+
         courseTitle.setText(title);
         courseStart.setText(getIntent().getStringExtra("start"));
         courseEnd.setText(getIntent().getStringExtra("end"));
@@ -104,6 +108,83 @@ public class CourseDetails extends AppCompatActivity {
         instructorPhone.setText(phone);
         instructorEmail.setText(email);
         courseNotes.setText(notes);
+
+        if(status.equals("In Progress")){
+           courseStatusSpinner.setSelection(0);
+        }else if(status.equals("Completed")){
+            courseStatusSpinner.setSelection(1);
+        }else if(status.equals("Planned to Take")){
+            courseStatusSpinner.setSelection(2);
+        }else if(status.equals("Dropped")){
+            courseStatusSpinner.setSelection(3);
+        }
+
+        displayCalendar();
+
+
+        repo = new Repository(getApplication());
+
+        final AssessmentAdapter adapter = new AssessmentAdapter(this);
+        courseAssessmentsRecyclerView.setAdapter(adapter);
+        courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_course_details);
+
+        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatusSpinner.setAdapter(courseAdapter);
+        courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        courseTitle = findViewById(R.id.courseTitleTxt);
+        courseStart = findViewById(R.id.courseStartTxt);
+        courseEnd = findViewById(R.id.courseEndTxt);
+        instructorName = findViewById(R.id.instructorNameTxt);
+        instructorPhone = findViewById(R.id.instructorPhoneTxt);
+        instructorEmail = findViewById(R.id.instructorEmailTxt);
+        courseAssessmentsRecyclerView = findViewById(R.id.courseAssessmentsRecyclerView);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
+        courseNotes = findViewById(R.id.courseNotesTxt);
+
+        courseID = getIntent().getIntExtra("id", -1);
+        title = getIntent().getStringExtra("title");
+        status = getIntent().getStringExtra("status");
+        name = getIntent().getStringExtra("instructor");
+        phone = getIntent().getStringExtra("phone");
+        email = getIntent().getStringExtra("email");
+        notes = getIntent().getStringExtra("notes");
+
+        courseTitle.setText(title);
+        courseStart.setText(getIntent().getStringExtra("start"));
+        courseEnd.setText(getIntent().getStringExtra("end"));
+        instructorName.setText(name);
+        instructorPhone.setText(phone);
+        instructorEmail.setText(email);
+        courseNotes.setText(notes);
+
+        if(status.equals("In Progress")){
+            courseStatusSpinner.setSelection(0);
+        }else if(status.equals("Completed")){
+            courseStatusSpinner.setSelection(1);
+        }else if(status.equals("Planned to Take")){
+            courseStatusSpinner.setSelection(2);
+        }else if(status.equals("Dropped")){
+            courseStatusSpinner.setSelection(3);
+        }
 
         displayCalendar();
 
@@ -188,7 +269,7 @@ public class CourseDetails extends AppCompatActivity {
 
     public void saveCourse(View view) {
         Course course;
-        Spinner courseStatusSpinner = (Spinner)findViewById(R.id.course_status_spinner);
+        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         String status = courseStatusSpinner.getSelectedItem().toString();
         int termID = getIntent().getIntExtra("termID",-1);
 

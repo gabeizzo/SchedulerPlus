@@ -64,6 +64,7 @@
     <string name="ad_end_date_lbl">End Date:</string>
     <string name="type_lbl">Type:</string>
     <string name="assessment_type">Objective, Performance etc.</string>
+    <string name="course_lbl">Course:</string>
     <string-array name="type_array">
         <item>Objective Assessment</item>
         <item>Performance Assessment</item>

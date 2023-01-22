@@ -58,6 +58,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private final Context context;
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
+
     final Calendar startCal = Calendar.getInstance();
     final Calendar endCal = Calendar.getInstance();
 

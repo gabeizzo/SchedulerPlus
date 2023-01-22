@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
+import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,14 +29,18 @@ import java.util.Date;
 import java.util.List;
 
 public class AssessmentDetails extends AppCompatActivity {
-    int assessmentID;
+
     EditText assessmentTitle;
     EditText assessmentStart;
     EditText assessmentEnd;
     Spinner assessmentTypeSpinner;
+    Spinner courseSpinner;
+
+    int assessmentID;
     String title;
     String type;
     Integer courseID;
+
     Repository repo;
 
     Date start;
@@ -61,8 +66,7 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String type = adapterView.getItemAtPosition(i).toString();
-             //   selectSpinnerItemByValue(assessmentTypeSpinner, l);
+                type = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -86,9 +90,17 @@ public class AssessmentDetails extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         type = getIntent().getStringExtra("type");
         courseID = getIntent().getIntExtra("courseID",-1);
+
         assessmentTitle.setText(title);
         assessmentStart.setText(getIntent().getStringExtra("start"));
         assessmentEnd.setText(getIntent().getStringExtra("end"));
+
+        if(type.equals("Objective Assessment")){
+            assessmentTypeSpinner.setSelection(0);
+        }else if(type.equals("Performance Assessment")) {
+            assessmentTypeSpinner.setSelection(1);
+        }
+
         displayCalendar();
 
         repo = new Repository(getApplication());
@@ -148,17 +160,7 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         };
     }
-    /*
-    public static void selectSpinnerItemByValue(Spinner spnr, long value){
-        SimpleCursorAdapter adapter = (SimpleCursorAdapter) spnr.getAdapter();
-        for (int position = 0; position < adapter.getCount(); position++){
-            if(adapter.getItemId(position) == value){
-                spnr.setSelection(position);
-                return;
-            }
-        }
-    }
-*/
+
 
     @Override
     protected void onResume() {
@@ -167,18 +169,14 @@ public class AssessmentDetails extends AppCompatActivity {
 
         Spinner assessmentTypeSpinner = findViewById(R.id.type_spinner);
         ArrayAdapter<CharSequence> assessmentAdapter = ArrayAdapter.createFromResource(this, R.array.type_array, android.R.layout.simple_spinner_item);
-        assessmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        assessmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assessmentTypeSpinner.setAdapter(assessmentAdapter);
         assessmentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                //   selectSpinnerItemByValue(assessmentTypeSpinner, l);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //do nothing
             }
         });
 
@@ -192,10 +190,28 @@ public class AssessmentDetails extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         type = getIntent().getStringExtra("type");
         courseID = getIntent().getIntExtra("courseID",-1);
+
         assessmentTitle.setText(title);
         assessmentStart.setText(getIntent().getStringExtra("start"));
         assessmentEnd.setText(getIntent().getStringExtra("end"));
 
+        if(type.equals("Objective Assessment")){
+            assessmentTypeSpinner.setSelection(0);
+        }else if(type.equals("Performance Assessment")) {
+            assessmentTypeSpinner.setSelection(1);
+        }
+        List<Course> allCourses = repo.getAllCourses();
+        List<CharSequence> courseTitle = new ArrayList<>();
+        for(Course course : allCourses) {
+            courseTitle.add(course.getCourseTitle() + " [" +course.getCourseID()+"]");
+        }
+        Spinner courseSpinner = findViewById(R.id.course_spinner);
+        ArrayAdapter<CharSequence> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTitle);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseSpinner.setAdapter(courseAdapter);
+        if (getIntent().getStringExtra("title") != null) {
+            courseSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("courseID"))-1);
+        }
 
         displayCalendar();
 
@@ -232,15 +248,32 @@ public class AssessmentDetails extends AppCompatActivity {
 
     public void saveAssessment(View view) {
         Assessment assessment;
-        Spinner assessmentTypeSpinner = (Spinner)findViewById(R.id.type_spinner);
+        Spinner assessmentTypeSpinner = findViewById(R.id.type_spinner);
         String type = assessmentTypeSpinner.getSelectedItem().toString();
+
+        Spinner courseSpinner = findViewById(R.id.course_spinner);
 
         if (assessmentID == -1) {
             int newID = repo.getAllAssessments().get(repo.getAllAssessments().size() - 1).getAssessmentID() + 1;
-            assessment = new Assessment(newID, assessmentTitle.getText().toString(), new Date(assessmentStart.getText().toString()), new Date(assessmentEnd.getText().toString()), type, null);
+
+            assessment = new Assessment(
+                    newID,
+                    assessmentTitle.getText().toString(),
+                    new Date(assessmentStart.getText().toString()),
+                    new Date(assessmentEnd.getText().toString()),
+                    type,
+                    courseSpinner.getSelectedItemPosition()+1);
+
             repo.insert(assessment);
         } else {
-            assessment = new Assessment(assessmentID, assessmentTitle.getText().toString(), new Date(assessmentStart.getText().toString()), new Date(assessmentEnd.getText().toString()), type, courseID);
+            assessment = new Assessment(
+                    assessmentID,
+                    assessmentTitle.getText().toString(),
+                    new Date(assessmentStart.getText().toString()),
+                    new Date(assessmentEnd.getText().toString()),
+                    type,
+                    courseSpinner.getSelectedItemPosition()+1);
+
             repo.update(assessment);
         }
     }
