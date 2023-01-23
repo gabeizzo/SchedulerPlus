@@ -55,6 +55,8 @@ public class CourseList extends AppCompatActivity {
 
     public void goToCourseDetails(View view) {
         Intent intent=new Intent(CourseList.this, CourseDetails.class);
+        intent.putExtra("status", "In Progress");
+
         startActivity(intent);
     }
     public void goToAssessments(MenuItem item) {

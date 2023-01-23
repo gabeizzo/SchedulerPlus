@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
@@ -52,6 +53,7 @@ public class TermList extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {

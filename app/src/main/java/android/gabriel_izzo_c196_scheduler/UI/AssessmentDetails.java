@@ -39,7 +39,7 @@ public class AssessmentDetails extends AppCompatActivity {
     int assessmentID;
     String title;
     String type;
-    Integer courseID;
+    int courseID;
 
     Repository repo;
 
@@ -89,7 +89,7 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
         type = getIntent().getStringExtra("type");
-        courseID = getIntent().getIntExtra("courseID",-1);
+        courseID =getIntent().getIntExtra("courseID",-1);
 
         assessmentTitle.setText(title);
         assessmentStart.setText(getIntent().getStringExtra("start"));
@@ -104,6 +104,19 @@ public class AssessmentDetails extends AppCompatActivity {
         displayCalendar();
 
         repo = new Repository(getApplication());
+
+        List<Course> allCourses = repo.getAllCourses();
+        List<CharSequence> courseTitle = new ArrayList<>();
+        for(Course course : allCourses) {
+            courseTitle.add(course.getCourseTitle() + " [" +course.getCourseID()+"]");
+        }
+        Spinner courseSpinner = findViewById(R.id.course_spinner);
+        ArrayAdapter<CharSequence> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTitle);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseSpinner.setAdapter(courseAdapter);
+        if (getIntent().getStringExtra("title") != null) {
+            courseSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("courseID"))-1);
+        }
 
     }
 

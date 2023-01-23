@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
+import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +26,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CourseDetails extends AppCompatActivity {
 
@@ -38,6 +42,7 @@ public class CourseDetails extends AppCompatActivity {
     EditText instructorEmail;
     RecyclerView courseAssessmentsRecyclerView;
     EditText courseNotes;
+    TextView courseStatus;
 
     int courseID;
     String title;
@@ -73,12 +78,9 @@ public class CourseDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String status = adapterView.getItemAtPosition(i).toString();
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -109,6 +111,7 @@ public class CourseDetails extends AppCompatActivity {
         instructorEmail.setText(email);
         courseNotes.setText(notes);
 
+        try{
         if(status.equals("In Progress")){
            courseStatusSpinner.setSelection(0);
         }else if(status.equals("Completed")){
@@ -117,6 +120,9 @@ public class CourseDetails extends AppCompatActivity {
             courseStatusSpinner.setSelection(2);
         }else if(status.equals("Dropped")){
             courseStatusSpinner.setSelection(3);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         displayCalendar();
@@ -128,6 +134,19 @@ public class CourseDetails extends AppCompatActivity {
         courseAssessmentsRecyclerView.setAdapter(adapter);
         courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
+
+        List<Term> allTerms = repo.getAllTerms();
+        List<CharSequence> termTitle = new ArrayList<>();
+        for(Term term : allTerms) {
+            termTitle.add(term.getTermTitle() + " [" +term.getTermID()+"]");
+        }
+        Spinner termSpinner = findViewById(R.id.term_spinner);
+        ArrayAdapter<CharSequence> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termTitle);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        termSpinner.setAdapter(termAdapter);
+        if (getIntent().getStringExtra("title") != null) {
+            termSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("termID"))-1);
+        }
     }
     @Override
     protected void onResume() {
@@ -141,11 +160,10 @@ public class CourseDetails extends AppCompatActivity {
         courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String status = adapterView.getItemAtPosition(i).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -176,14 +194,23 @@ public class CourseDetails extends AppCompatActivity {
         instructorEmail.setText(email);
         courseNotes.setText(notes);
 
-        if(status.equals("In Progress")){
-            courseStatusSpinner.setSelection(0);
-        }else if(status.equals("Completed")){
-            courseStatusSpinner.setSelection(1);
-        }else if(status.equals("Planned to Take")){
-            courseStatusSpinner.setSelection(2);
-        }else if(status.equals("Dropped")){
-            courseStatusSpinner.setSelection(3);
+        try{
+            switch (status) {
+                case "In Progress":
+                    courseStatusSpinner.setSelection(0);
+                    break;
+                case "Completed":
+                    courseStatusSpinner.setSelection(1);
+                    break;
+                case "Planned to Take":
+                    courseStatusSpinner.setSelection(2);
+                    break;
+                case "Dropped":
+                    courseStatusSpinner.setSelection(3);
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         displayCalendar();
@@ -195,6 +222,19 @@ public class CourseDetails extends AppCompatActivity {
         courseAssessmentsRecyclerView.setAdapter(adapter);
         courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
+
+        List<Term> allTerms = repo.getAllTerms();
+        List<CharSequence> termTitle = new ArrayList<>();
+        for(Term term : allTerms) {
+            termTitle.add(term.getTermTitle() + " [" +term.getTermID()+"]");
+        }
+        Spinner termSpinner = findViewById(R.id.term_spinner);
+        ArrayAdapter<CharSequence> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termTitle);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        termSpinner.setAdapter(termAdapter);
+        if (getIntent().getStringExtra("title") != null) {
+            termSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("termID"))-1);
+        }
     }
 
     private void displayCalendar() {
@@ -271,7 +311,7 @@ public class CourseDetails extends AppCompatActivity {
         Course course;
         Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         String status = courseStatusSpinner.getSelectedItem().toString();
-        int termID = getIntent().getIntExtra("termID",-1);
+        int termID = getIntent().getIntExtra("id",-1);
 
         if (courseID == -1) {
             int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
@@ -279,11 +319,24 @@ public class CourseDetails extends AppCompatActivity {
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
                     instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
             repo.insert(course);
+
+            Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent=new Intent(CourseDetails.this, CourseList.class);
+            startActivity(intent);
+
         } else {
             course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
                     instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termID);
             repo.update(course);
+
+            Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent=new Intent(CourseDetails.this, CourseList.class);
+            startActivity(intent);
         }
     }
 

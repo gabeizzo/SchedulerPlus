@@ -25,6 +25,28 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/termIDLbl"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termID_lbl"
+                    android:textColor="@color/triton_dark_blue"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/term_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,19 +251,19 @@
             <TextView
                 android:id="@+id/assessmentsLbl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:background="@color/triton_orange"
                 android:text="@string/course_assessments_lbl"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/courseAssessmentsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="84dp"
+                android:layout_height="166dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -258,12 +280,12 @@
                 <TextView
                     android:id="@+id/courseNotesLbl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:background="@color/triton_blue"
                     android:text="@string/course_notes_lbl"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 
@@ -273,7 +295,7 @@
             <EditText
                 android:id="@+id/courseNotesTxt"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="573dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -281,7 +303,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/enter_notes"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine" />
 
         </LinearLayout>
     </ScrollView>

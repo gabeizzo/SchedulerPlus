@@ -65,6 +65,9 @@
     <string name="type_lbl">Type:</string>
     <string name="assessment_type">Objective, Performance etc.</string>
     <string name="course_lbl">Course:</string>
+    <string name="termID_lbl">Term:</string>
+    <string name="term_spinner_hint">Select term</string>
+    <string name="choose_status">Choose status</string>
     <string-array name="type_array">
         <item>Objective Assessment</item>
         <item>Performance Assessment</item>

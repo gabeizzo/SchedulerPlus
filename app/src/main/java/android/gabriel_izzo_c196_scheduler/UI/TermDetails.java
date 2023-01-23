@@ -1,12 +1,14 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
+import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ public class TermDetails extends AppCompatActivity {
     EditText termTitle;
     EditText termStart;
     EditText termEnd;
+    RecyclerView addedCourses;
+    RecyclerView allCourses;
 
     Date start;
     ImageView startCalView;
@@ -41,9 +45,6 @@ public class TermDetails extends AppCompatActivity {
 
     Repository repo;
 
-    RecyclerView allCourses;
-    RecyclerView termCourses;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,48 @@ public class TermDetails extends AppCompatActivity {
         termStart = findViewById(R.id.termStartTxt);
         termEnd = findViewById(R.id.termEndTxt);
         allCourses = findViewById(R.id.allCourses);
-        termCourses = findViewById(R.id.addedCourses);
+        addedCourses = findViewById(R.id.addedCourses);
+        startCalView = findViewById(R.id.startCalView);
+        endCalView = findViewById(R.id.endCalView);
+        termID = getIntent().getIntExtra("id", -1);
+        termTitle.setText(getIntent().getStringExtra("title"));
+        termStart.setText(getIntent().getStringExtra("start"));
+        termEnd.setText(getIntent().getStringExtra("end"));
+
+        displayCalendar();
+
+        repo = new Repository(getApplication());
+
+        Button saveButton = findViewById(R.id.saveButton);
+        if (termID != -1) {
+            saveButton.setText(R.string.update_term_lbl);
+        } else{
+            saveButton.setText(R.string.save_btn);
+        }
+
+        final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
+        addedCourses.setAdapter(addedCoursesAdapter);
+        addedCourses.setLayoutManager(new LinearLayoutManager(this));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
+
+        final CourseAdapter allCoursesAdapter = new CourseAdapter(this);
+        allCourses.setAdapter(allCoursesAdapter);
+        allCourses.setLayoutManager(new LinearLayoutManager(this));
+        allCoursesAdapter.setCourses(repo.getAllCourses());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_term_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        termTitle = findViewById(R.id.termTitleTxt);
+        termStart = findViewById(R.id.termStartTxt);
+        termEnd = findViewById(R.id.termEndTxt);
+        allCourses = findViewById(R.id.allCourses);
+        addedCourses = findViewById(R.id.addedCourses);
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         termID = getIntent().getIntExtra("id", -1);
@@ -71,6 +113,20 @@ public class TermDetails extends AppCompatActivity {
             Button saveButton = findViewById(R.id.saveButton);
             saveButton.setText(R.string.update_term_lbl);
         }
+        else{
+            Button saveButton = findViewById(R.id.saveButton);
+            saveButton.setText(R.string.save_btn);
+        }
+        final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
+        addedCourses.setAdapter(addedCoursesAdapter);
+        addedCourses.setLayoutManager(new LinearLayoutManager(this));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
+
+
+        final CourseAdapter allCoursesAdapter = new CourseAdapter(this);
+        allCourses.setAdapter(allCoursesAdapter);
+        allCourses.setLayoutManager(new LinearLayoutManager(this));
+        allCoursesAdapter.setCourses(repo.getAllCourses());
 
     }
 
@@ -208,4 +264,5 @@ public class TermDetails extends AppCompatActivity {
         Intent intent=new Intent(TermDetails.this, CourseList.class);
         startActivity(intent);
     }
+
 }

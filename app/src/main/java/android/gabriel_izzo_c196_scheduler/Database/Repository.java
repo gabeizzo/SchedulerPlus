@@ -204,9 +204,9 @@ public class Repository {
         return rowCountString;
     }
 
-    public List<Course> getAssociatedCourses(String term) {
+    public List<Course> getAssociatedCourses(int termID) {
         databaseExecutor.execute(() -> {
-            mAllCourses = mCourseDAO.getAllAssociatedCourses(Integer.parseInt(term));
+            mAllCourses = mCourseDAO.getAllAssociatedCourses(termID);
         });
 
         try {
