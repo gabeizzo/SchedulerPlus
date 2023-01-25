@@ -78,7 +78,7 @@ public class TermDetails extends AppCompatActivity {
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
         addedCourses.setLayoutManager(new LinearLayoutManager(this));
-        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(String.valueOf(termID)));
 
         final CourseAdapter allCoursesAdapter = new CourseAdapter(this);
         allCourses.setAdapter(allCoursesAdapter);
@@ -120,7 +120,7 @@ public class TermDetails extends AppCompatActivity {
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
         addedCourses.setLayoutManager(new LinearLayoutManager(this));
-        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(String.valueOf(termID)));
 
 
         final CourseAdapter allCoursesAdapter = new CourseAdapter(this);

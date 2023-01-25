@@ -29,16 +29,14 @@ import java.util.Date;
 import java.util.List;
 
 public class AssessmentDetails extends AppCompatActivity {
-
+    int assessmentID;
     EditText assessmentTitle;
     EditText assessmentStart;
     EditText assessmentEnd;
-    Spinner assessmentTypeSpinner;
-    Spinner courseSpinner;
-
-    int assessmentID;
     String title;
     String type;
+    Spinner assessmentTypeSpinner;
+    Spinner courseSpinner;
     int courseID;
 
     Repository repo;
@@ -115,7 +113,7 @@ public class AssessmentDetails extends AppCompatActivity {
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(courseAdapter);
         if (getIntent().getStringExtra("title") != null) {
-            courseSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("courseID"))-1);
+            courseSpinner.setSelection(courseID-1);
         }
 
     }
@@ -223,7 +221,7 @@ public class AssessmentDetails extends AppCompatActivity {
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(courseAdapter);
         if (getIntent().getStringExtra("title") != null) {
-            courseSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("courseID"))-1);
+            courseSpinner.setSelection(courseID-1);
         }
 
         displayCalendar();

@@ -118,7 +118,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 intent.putExtra("start", assessmentStart);
                 intent.putExtra("end", assessmentEnd);
                 intent.putExtra("type", current.getAssessmentType());
-                intent.putExtra("courseID", String.valueOf(current.getCourseID()));
+                intent.putExtra("courseID", current.getCourseID());
                 context.startActivity(intent);
             });
 

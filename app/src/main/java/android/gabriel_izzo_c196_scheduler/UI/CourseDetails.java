@@ -51,6 +51,7 @@ public class CourseDetails extends AppCompatActivity {
     String phone;
     String email;
     String notes;
+    int termID;
 
     Repository repo;
 
@@ -102,6 +103,7 @@ public class CourseDetails extends AppCompatActivity {
         phone = getIntent().getStringExtra("phone");
         email = getIntent().getStringExtra("email");
         notes = getIntent().getStringExtra("notes");
+        termID = getIntent().getIntExtra("termID", -1);
 
         courseTitle.setText(title);
         courseStart.setText(getIntent().getStringExtra("start"));
@@ -145,7 +147,7 @@ public class CourseDetails extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         termSpinner.setAdapter(termAdapter);
         if (getIntent().getStringExtra("title") != null) {
-            termSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("termID"))-1);
+            termSpinner.setSelection(termID-1);
         }
     }
     @Override
@@ -185,6 +187,8 @@ public class CourseDetails extends AppCompatActivity {
         phone = getIntent().getStringExtra("phone");
         email = getIntent().getStringExtra("email");
         notes = getIntent().getStringExtra("notes");
+        termID = getIntent().getIntExtra("termID", -1);
+
 
         courseTitle.setText(title);
         courseStart.setText(getIntent().getStringExtra("start"));
@@ -233,7 +237,7 @@ public class CourseDetails extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         termSpinner.setAdapter(termAdapter);
         if (getIntent().getStringExtra("title") != null) {
-            termSpinner.setSelection(Integer.parseInt(getIntent().getStringExtra("termID"))-1);
+            termSpinner.setSelection(termID-1);
         }
     }
 
@@ -311,13 +315,13 @@ public class CourseDetails extends AppCompatActivity {
         Course course;
         Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         String status = courseStatusSpinner.getSelectedItem().toString();
-        int termID = getIntent().getIntExtra("id",-1);
+        Spinner termSpinner = findViewById(R.id.term_spinner);
 
         if (courseID == -1) {
             int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
             course = new Course(newID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
+                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termSpinner.getSelectedItemPosition()+1);
             repo.insert(course);
 
             Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
@@ -329,7 +333,7 @@ public class CourseDetails extends AppCompatActivity {
         } else {
             course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termID);
+                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termSpinner.getSelectedItemPosition()+1);
             repo.update(course);
 
             Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
