@@ -14,4 +14,12 @@
         android:id="@+id/cd_share"
         android:onClick="shareCourseDetails"
         android:title="@string/cd_share_menu" />
+    <item
+        android:id="@+id/setAlerts"
+        android:onClick="setCourseAlerts"
+        android:title="@string/set_alerts" />
+    <item
+        android:id="@+id/deleteCourse"
+        android:onClick="deleteCourse"
+        android:title="@string/delete_course" />
 </menu>

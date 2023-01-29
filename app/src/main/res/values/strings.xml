@@ -7,7 +7,7 @@
     <string name="save_button">Save</string>
     <string name="term_title">Title:</string>
     <string name="edit_start">MM/DD/YYYY</string>
-    <string name="enter_text">Enter</string>
+    <string name="enter_text">Terms</string>
     <string name="term_name">TextView</string>
     <string name="term_end">End Date:</string>
     <string name="edit_end">MM/DD/YYYY</string>
@@ -68,6 +68,11 @@
     <string name="termID_lbl">Term:</string>
     <string name="term_spinner_hint">Select term</string>
     <string name="choose_status">Choose status</string>
+    <string name="term_hint_lbl">This term must be saved first before adding courses to it in the Course Details screen</string>
+    <string name="set_alerts">Set Start and End Date Alerts</string>
+    <string name="delete_course">Delete</string>
+    <string name="assessmentsButtonLabel">Assessments</string>
+    <string name="coursesButtonLabel">Courses</string>
     <string-array name="type_array">
         <item>Objective Assessment</item>
         <item>Performance Assessment</item>

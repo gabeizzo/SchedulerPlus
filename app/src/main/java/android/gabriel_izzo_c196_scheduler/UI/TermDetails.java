@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ public class TermDetails extends AppCompatActivity {
     EditText termTitle;
     EditText termStart;
     EditText termEnd;
+    TextView termHint;
     RecyclerView addedCourses;
     RecyclerView allCourses;
 
@@ -52,6 +54,7 @@ public class TermDetails extends AppCompatActivity {
         setContentView(R.layout.activity_term_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        termHint = findViewById(R.id.termHintLbl);
         termTitle = findViewById(R.id.termTitleTxt);
         termStart = findViewById(R.id.termStartTxt);
         termEnd = findViewById(R.id.termEndTxt);
@@ -63,17 +66,34 @@ public class TermDetails extends AppCompatActivity {
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));
-
+        
+        Term term = null;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         displayCalendar();
+        setHintVisibility(termID);
 
         repo = new Repository(getApplication());
 
         Button saveButton = findViewById(R.id.saveButton);
         if (termID != -1) {
             saveButton.setText(R.string.update_term_lbl);
-        } else{
-            saveButton.setText(R.string.save_btn);
+            setHintVisibility(termID);
+
+            for(Term t: repo.getAllTerms()){
+                if(t.getTermID() == termID){
+                term = t;
+                }
+            }
+            if(term!=null) {
+                termTitle.setText(term.getTermTitle());
+                termStart.setText(dateFormatter.format(term.getTermStart()));
+                termEnd.setText(dateFormatter.format(term.getTermEnd()));
+                setHintVisibility(term.getTermID());
+            }
         }
+        else{
+        saveButton.setText(R.string.save_btn);
+    }
 
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
@@ -100,21 +120,36 @@ public class TermDetails extends AppCompatActivity {
         addedCourses = findViewById(R.id.addedCourses);
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
+        termHint = findViewById(R.id.termHintLbl);
         termID = getIntent().getIntExtra("id", -1);
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));
 
+        Term term = null;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+
         displayCalendar();
+        setHintVisibility(termID);
 
         repo = new Repository(getApplication());
+        Button saveButton = findViewById(R.id.saveButton);
 
         if (termID != -1) {
-            Button saveButton = findViewById(R.id.saveButton);
+            setHintVisibility(termID);
             saveButton.setText(R.string.update_term_lbl);
-        }
-        else{
-            Button saveButton = findViewById(R.id.saveButton);
+            for(Term t: repo.getAllTerms()){
+                if(t.getTermID() == termID){
+                    term = t;
+                }
+            }
+            if(term!=null) {
+                termTitle.setText(term.getTermTitle());
+                termStart.setText(dateFormatter.format(term.getTermStart()));
+                termEnd.setText(dateFormatter.format(term.getTermEnd()));
+                setHintVisibility(term.getTermID());
+            }
+        } else{
             saveButton.setText(R.string.save_btn);
         }
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
@@ -194,6 +229,8 @@ public class TermDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent=new Intent(TermDetails.this, TermList.class);
+                startActivity(intent);
                 this.finish();
                 return true;
 
@@ -264,5 +301,15 @@ public class TermDetails extends AppCompatActivity {
         Intent intent=new Intent(TermDetails.this, CourseList.class);
         startActivity(intent);
     }
+
+    public void setHintVisibility(int termID){
+        if(termID!=-1){
+            termHint.setVisibility(View.GONE);
+        }
+        else{
+           termHint.setVisibility(View.VISIBLE);
+        }
+    }
+
 
 }

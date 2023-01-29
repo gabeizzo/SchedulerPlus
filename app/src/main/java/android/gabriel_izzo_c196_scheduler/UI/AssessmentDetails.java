@@ -288,4 +288,10 @@ public class AssessmentDetails extends AppCompatActivity {
             repo.update(assessment);
         }
     }
+
+    public void deleteAssessment(MenuItem item) {
+    }
+
+    public void setAssessmentAlerts(MenuItem item) {
+    }
 }

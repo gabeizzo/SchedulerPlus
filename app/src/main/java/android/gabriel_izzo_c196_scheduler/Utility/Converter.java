@@ -16,4 +16,4 @@ public class Converter {
 }
 
 //LocalDate localDate = LocalDate.now();
-// For reference DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy"); String formattedString = localDate.format(formatter);
+// For reference DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mm yyyy"); String formattedString = localDate.format(formatter);

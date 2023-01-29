@@ -21,6 +21,18 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
 
+    <TextView
+        android:id="@+id/termHintLbl"
+        android:layout_width="274dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="13dp"
+        android:text="@string/term_hint_lbl"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="377dp"
@@ -29,6 +41,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:background="@color/triton_light_gray"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

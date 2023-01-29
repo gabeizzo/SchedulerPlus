@@ -21,11 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public void enterApp(View view) {
-        Intent intent=new Intent(MainActivity.this, TermList.class);
-        startActivity(intent);
         Repository repo=new Repository(getApplication());
         Term term=new Term(1,"Spring 2023", new Date(2023,1,1), new Date(2023, 6, 1));
         repo.insert(term);
@@ -33,5 +28,20 @@ public class MainActivity extends AppCompatActivity {
         repo.insert(assessment);
         Course course=new Course(1,"Mobile Applications", new Date(01/01/2023), new Date(06/01/2023), "In Progress", "Mike Jones", "123-456-7891", "mikeinstructor@wgu.edu", "Example Course Notes (Share via email using the menu option on the top right of the screen).", 1);
         repo.insert(course);
+    }
+
+    public void goToTermList(View view) {
+        Intent intent=new Intent(MainActivity.this, TermList.class);
+        startActivity(intent);
+    }
+
+    public void goToCourseList(View view) {
+        Intent intent=new Intent(MainActivity.this, CourseList.class);
+        startActivity(intent);
+    }
+
+    public void goToAssessmentList(View view) {
+        Intent intent=new Intent(MainActivity.this, AssessmentList.class);
+        startActivity(intent);
     }
 }

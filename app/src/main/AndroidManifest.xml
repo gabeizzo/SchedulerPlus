@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="android.gabriel_izzo_c196_scheduler">
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
 
     <application
         android:allowBackup="true"

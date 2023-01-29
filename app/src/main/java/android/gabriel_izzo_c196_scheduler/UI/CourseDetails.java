@@ -305,7 +305,10 @@ public class CourseDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                intent.putExtra("id", termID);
+                startActivity(intent);
+                //this.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -316,30 +319,33 @@ public class CourseDetails extends AppCompatActivity {
         Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         String status = courseStatusSpinner.getSelectedItem().toString();
         Spinner termSpinner = findViewById(R.id.term_spinner);
+        int termID = termSpinner.getSelectedItemPosition()+1;
 
         if (courseID == -1) {
             int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
             course = new Course(newID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termSpinner.getSelectedItemPosition()+1);
+                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
             repo.insert(course);
 
             Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
             toast.show();
 
-            Intent intent=new Intent(CourseDetails.this, CourseList.class);
+            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+            intent.putExtra("id", termID);
             startActivity(intent);
 
         } else {
             course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                     new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termSpinner.getSelectedItemPosition()+1);
+                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termID);
             repo.update(course);
 
             Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
             toast.show();
 
-            Intent intent=new Intent(CourseDetails.this, CourseList.class);
+            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+            intent.putExtra("id", termID);
             startActivity(intent);
         }
     }
@@ -379,5 +385,12 @@ public class CourseDetails extends AppCompatActivity {
         email.setType("message/rfc822");
 
         startActivity(Intent.createChooser(email, "Choose an Email client :"));
+    }
+
+    public void setCourseAlerts(MenuItem item) {
+
+    }
+
+    public void deleteCourse(MenuItem item) {
     }
 }
