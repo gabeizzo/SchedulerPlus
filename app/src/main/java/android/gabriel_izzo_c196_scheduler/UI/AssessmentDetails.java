@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
+import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -232,7 +234,7 @@ public class AssessmentDetails extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu; this adds items to the action bar if it is present
-        getMenuInflater().inflate(R.menu.menu_assessments_list, menu);
+        getMenuInflater().inflate(R.menu.menu_assessment_details, menu);
         return true;
     }
     public void goToTerms(MenuItem item) {
@@ -290,8 +292,26 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void deleteAssessment(MenuItem item) {
+        Assessment assessment;
+        try {
+            if (assessmentID != -1) {
+                assessment = new Assessment(assessmentID, assessmentTitle.getText().toString(), new Date(assessmentStart.getText().toString()), new Date(assessmentEnd.getText().toString()), type ,courseID);
+                repo.delete(assessment);
+
+                Toast toast = Toast.makeText(this, "Assessment Deleted Successfully", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent=new Intent(AssessmentDetails.this, AssessmentList.class);
+                startActivity(intent);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setAssessmentAlerts(MenuItem item) {
+
     }
+
 }

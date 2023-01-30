@@ -204,9 +204,9 @@ public class Repository {
         return rowCountString;
     }
 
-    public List<Course> getAssociatedCourses(String termID) {
+    public List<Course> getAssociatedCourses(int termID) {
         databaseExecutor.execute(() -> {
-            mAllCourses = mCourseDAO.getAllAssociatedCourses(Integer.parseInt(termID));
+            mAllCourses = mCourseDAO.getAllAssociatedCourses(termID);
         });
 
         try {
@@ -217,9 +217,9 @@ public class Repository {
         return mAllCourses;
     }
 
-    public List<Assessment> getAssociatedAssessments(String assessment) {
+    public List<Assessment> getAssociatedAssessments(int courseID) {
         databaseExecutor.execute(() -> {
-            mAllAssessments = mAssessmentDAO.getAllAssocAssessments(Integer.parseInt(assessment));
+            mAllAssessments = mAssessmentDAO.getAllAssocAssessments(courseID);
         });
 
         try {
@@ -262,7 +262,7 @@ public class Repository {
         return isNewRecord;
     }
 
-    public int getAssociatedAssessments(int id) {
+    /*public int getAssociatedAssessments(int id) {
         databaseExecutor.execute(() -> {
             mAllAssessments = mAssessmentDAO.getAllAssocAssessments(id);
         });
@@ -273,7 +273,7 @@ public class Repository {
             e.printStackTrace();
         }
         return mAllAssessments.size();
-    }
+    }*/
 
     public Term getTermByID(int id) {
         databaseExecutor.execute(() -> {

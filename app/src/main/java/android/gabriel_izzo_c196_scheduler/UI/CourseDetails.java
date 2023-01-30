@@ -1,6 +1,7 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
@@ -135,7 +136,7 @@ public class CourseDetails extends AppCompatActivity {
         final AssessmentAdapter adapter = new AssessmentAdapter(this);
         courseAssessmentsRecyclerView.setAdapter(adapter);
         courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
+        adapter.setAssessments(repo.getAssociatedAssessments(courseID));
 
         List<Term> allTerms = repo.getAllTerms();
         List<CharSequence> termTitle = new ArrayList<>();
@@ -225,7 +226,7 @@ public class CourseDetails extends AppCompatActivity {
         final AssessmentAdapter adapter = new AssessmentAdapter(this);
         courseAssessmentsRecyclerView.setAdapter(adapter);
         courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setAssessments(repo.getAssociatedAssessments(String.valueOf(courseID)));
+        adapter.setAssessments(repo.getAssociatedAssessments(courseID));
 
         List<Term> allTerms = repo.getAllTerms();
         List<CharSequence> termTitle = new ArrayList<>();
@@ -392,5 +393,49 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void deleteCourse(MenuItem item) {
-    }
+        Course course;
+        try {
+            if (courseID != -1) {
+                course = new Course(
+                        courseID,
+                        courseTitle.getText().toString(),
+                        new Date(courseStart.getText().toString()),
+                        new Date(courseEnd.getText().toString()),
+                        status,
+                        instructorName.getText().toString(),
+                        instructorPhone.getText().toString(),
+                        instructorEmail.getText().toString(),
+                        courseNotes.getText().toString(),
+                        termID
+                        );
+
+                if(repo.getAssociatedAssessments(courseID).size() == 0){
+                    repo.delete(course);
+
+                    Toast toast = Toast.makeText(this, "Course Deleted Successfully", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    Intent intent=new Intent(CourseDetails.this, CourseList.class);
+                    startActivity(intent);
+                }
+                else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setMessage("To Delete this Course, re-assign or delete the Assessments associated with it.");
+                    dialog.setTitle("Uh-Oh!");
+                    dialog.show();
+
+                }
+            }
+            else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("Courses that have not been saved cannot be deleted.");
+                dialog.setTitle("Uh-Oh!");
+                dialog.show();
+
+                }
+            }
+                catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 }

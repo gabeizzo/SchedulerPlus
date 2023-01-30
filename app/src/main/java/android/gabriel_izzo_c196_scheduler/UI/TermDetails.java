@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
@@ -98,7 +99,7 @@ public class TermDetails extends AppCompatActivity {
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
         addedCourses.setLayoutManager(new LinearLayoutManager(this));
-        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(String.valueOf(termID)));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
 
         final CourseAdapter allCoursesAdapter = new CourseAdapter(this);
         allCourses.setAdapter(allCoursesAdapter);
@@ -155,7 +156,7 @@ public class TermDetails extends AppCompatActivity {
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
         addedCourses.setLayoutManager(new LinearLayoutManager(this));
-        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(String.valueOf(termID)));
+        addedCoursesAdapter.setCourses(repo.getAssociatedCourses(termID));
 
 
         final CourseAdapter allCoursesAdapter = new CourseAdapter(this);
@@ -278,6 +279,8 @@ public class TermDetails extends AppCompatActivity {
         try {
             if (termID != -1) {
                 term = new Term(termID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
+
+                if(repo.getAssociatedCourses(termID).size() == 0){
                 repo.delete(term);
 
                 Toast toast = Toast.makeText(this, "Term Deleted Successfully", Toast.LENGTH_LONG);
@@ -285,7 +288,23 @@ public class TermDetails extends AppCompatActivity {
 
                 Intent intent=new Intent(TermDetails.this, TermList.class);
                 startActivity(intent);
+                }
+                else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setMessage("To Delete this Term, re-assign or delete the Courses associated with it.");
+                    dialog.setTitle("Uh-Oh!");
+                    dialog.show();
+
+                 }
             }
+            else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("Terms that have not been saved cannot be deleted.");
+                dialog.setTitle("Uh-Oh!");
+                dialog.show();
+
+            }
+
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -37,24 +37,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             termItemLayout = itemView.findViewById(R.id.term_item_layout);
             allCoursesRecycler = itemView.findViewById(R.id.allCourses);
             addedCoursesRecycler = itemView.findViewById(R.id.addedCourses);
-
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = getAdapterPosition();
-//                    final Term current = mTerms.get(position);
-//                    SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-//                    String termStart = dateFormatter.format(current.getTermStart());
-//                    String termEnd = dateFormatter.format(current.getTermEnd());
-//                    Intent intent = new Intent(context, TermDetails.class);
-//                    intent.putExtra("id", current.getTermID());
-//                    intent.putExtra("title", current.getTermTitle());
-//                    intent.putExtra("start", termStart);
-//                    intent.putExtra("end", termEnd);
-//                    context.startActivity(intent);
-//                }
-          //  });
         }
     }
 

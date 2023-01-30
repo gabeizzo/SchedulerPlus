@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         repo.insert(assessment);
         Course course=new Course(1,"Mobile Applications", new Date(01/01/2023), new Date(06/01/2023), "In Progress", "Mike Jones", "123-456-7891", "mikeinstructor@wgu.edu", "Example Course Notes (Share via email using the menu option on the top right of the screen).", 1);
         repo.insert(course);
+
+
     }
 
     public void goToTermList(View view) {

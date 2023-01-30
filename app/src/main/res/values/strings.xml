@@ -73,6 +73,8 @@
     <string name="delete_course">Delete</string>
     <string name="assessmentsButtonLabel">Assessments</string>
     <string name="coursesButtonLabel">Courses</string>
+    <string name="channel_name">channel</string>
+    <string name="channel_description">channelDesc</string>
     <string-array name="type_array">
         <item>Objective Assessment</item>
         <item>Performance Assessment</item>
