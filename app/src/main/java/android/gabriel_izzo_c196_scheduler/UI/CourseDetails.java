@@ -1,13 +1,17 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
+import android.gabriel_izzo_c196_scheduler.Utility.AlarmReceiver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -389,6 +393,26 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void setCourseAlerts(MenuItem item) {
+        Long alertStart = new Date(courseStart.getText().toString()).getTime();
+        Long alertEnd = new Date(courseEnd.getText().toString()).getTime();
+        String title = courseTitle.getText().toString();
+
+        Intent startAlertIntent = new Intent(this, AlarmReceiver.class);
+        startAlertIntent.putExtra("text", title);
+        startAlertIntent.putExtra("title", "Course Start Alert!");
+        PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, startAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager startAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        startAlarmManager.set(AlarmManager.RTC_WAKEUP, alertStart, pendingStartIntent);
+
+        Intent endAlertIntent = new Intent(this, AlarmReceiver.class);
+        endAlertIntent.putExtra("text", title);
+        endAlertIntent.putExtra("title", "Course End Alert!");
+        PendingIntent pendingEndIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, endAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager endAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        endAlarmManager.set(AlarmManager.RTC_WAKEUP, alertEnd, pendingEndIntent);
+
+        Toast toast = Toast.makeText(this, "Course Start and End Alerts Set!", Toast.LENGTH_LONG);
+        toast.show();
 
     }
 

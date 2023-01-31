@@ -22,7 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1")
                 .setSmallIcon(R.drawable.ic_baseline_school_24)
-                .setContentText(intent.getStringExtra("message"))
+                .setContentText(intent.getStringExtra("text"))
                 .setContentTitle(intent.getStringExtra("title"));
 
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
