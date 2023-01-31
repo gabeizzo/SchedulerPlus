@@ -65,7 +65,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Utility.AlarmReceiver"/>
+
+        <receiver
+            android:name=".Utility.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="SET_ALARM">
+        </receiver>
 
     </application>
 

@@ -7,20 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Build;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
     static int notificationID;
-    String channel_id;
+    String channel_id ="test";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         createNotificationChannel(context, channel_id);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channel_id)
                 .setSmallIcon(R.drawable.ic_baseline_school_24)
                 .setContentText(intent.getStringExtra("text"))
                 .setContentTitle(intent.getStringExtra("title"));

@@ -250,52 +250,36 @@ public class CourseDetails extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
-        startCalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(
-                        CourseDetails.this,
-                        startCalListener,
-                        startCal.get(Calendar.YEAR),
-                        startCal.get(Calendar.MONTH),
-                        startCal.get(Calendar.DAY_OF_MONTH)
-                ).show();
-            }
-        });
+        startCalView.setOnClickListener(v -> new DatePickerDialog(
+                CourseDetails.this,
+                startCalListener,
+                startCal.get(Calendar.YEAR),
+                startCal.get(Calendar.MONTH),
+                startCal.get(Calendar.DAY_OF_MONTH)
+        ).show());
 
-        startCalListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                startCal.set(Calendar.YEAR, year);
-                startCal.set(Calendar.MONTH, month);
-                startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        startCalListener = (view, year, month, dayOfMonth) -> {
+            startCal.set(Calendar.YEAR, year);
+            startCal.set(Calendar.MONTH, month);
+            startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                courseStart.setText(dateFormatter.format(startCal.getTime()));
-            }
+            courseStart.setText(dateFormatter.format(startCal.getTime()));
         };
 
-        endCalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(
-                        CourseDetails.this,
-                        endCalListener,
-                        endCal.get(Calendar.YEAR),
-                        endCal.get(Calendar.MONTH),
-                        endCal.get(Calendar.DAY_OF_MONTH)
-                ).show();
-            }
-        });
+        endCalView.setOnClickListener(v -> new DatePickerDialog(
+                CourseDetails.this,
+                endCalListener,
+                endCal.get(Calendar.YEAR),
+                endCal.get(Calendar.MONTH),
+                endCal.get(Calendar.DAY_OF_MONTH)
+        ).show());
 
-        endCalListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                endCal.set(Calendar.YEAR, year);
-                endCal.set(Calendar.MONTH, month);
-                endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        endCalListener = (view, year, month, dayOfMonth) -> {
+            endCal.set(Calendar.YEAR, year);
+            endCal.set(Calendar.MONTH, month);
+            endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                courseEnd.setText(dateFormatter.format(endCal.getTime()));
-            }
+            courseEnd.setText(dateFormatter.format(endCal.getTime()));
         };
     }
 
@@ -393,21 +377,25 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void setCourseAlerts(MenuItem item) {
-        Long alertStart = new Date(courseStart.getText().toString()).getTime();
-        Long alertEnd = new Date(courseEnd.getText().toString()).getTime();
+        long alertStart = new Date(courseStart.getText().toString()).getTime();
+        long alertEnd = new Date(courseEnd.getText().toString()).getTime();
         String title = courseTitle.getText().toString();
-
+        //Start Alert
         Intent startAlertIntent = new Intent(this, AlarmReceiver.class);
         startAlertIntent.putExtra("text", title);
         startAlertIntent.putExtra("title", "Course Start Alert!");
+
         PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, startAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+
         AlarmManager startAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         startAlarmManager.set(AlarmManager.RTC_WAKEUP, alertStart, pendingStartIntent);
-
+        //End Alert
         Intent endAlertIntent = new Intent(this, AlarmReceiver.class);
         endAlertIntent.putExtra("text", title);
         endAlertIntent.putExtra("title", "Course End Alert!");
+
         PendingIntent pendingEndIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, endAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+
         AlarmManager endAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         endAlarmManager.set(AlarmManager.RTC_WAKEUP, alertEnd, pendingEndIntent);
 

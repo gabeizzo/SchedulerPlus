@@ -170,52 +170,36 @@ public class TermDetails extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
-        startCalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(
-                        TermDetails.this,
-                        startCalListener,
-                        startCal.get(Calendar.YEAR),
-                        startCal.get(Calendar.MONTH),
-                        startCal.get(Calendar.DAY_OF_MONTH)
-                ).show();
-            }
-        });
+        startCalView.setOnClickListener(v -> new DatePickerDialog(
+                TermDetails.this,
+                startCalListener,
+                startCal.get(Calendar.YEAR),
+                startCal.get(Calendar.MONTH),
+                startCal.get(Calendar.DAY_OF_MONTH)
+        ).show());
 
-        startCalListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                startCal.set(Calendar.YEAR, year);
-                startCal.set(Calendar.MONTH, month);
-                startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        startCalListener = (view, year, month, dayOfMonth) -> {
+            startCal.set(Calendar.YEAR, year);
+            startCal.set(Calendar.MONTH, month);
+            startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                termStart.setText(dateFormatter.format(startCal.getTime()));
-            }
+            termStart.setText(dateFormatter.format(startCal.getTime()));
         };
 
-        endCalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(
-                        TermDetails.this,
-                        endCalListener,
-                        endCal.get(Calendar.YEAR),
-                        endCal.get(Calendar.MONTH),
-                        endCal.get(Calendar.DAY_OF_MONTH)
-                ).show();
-            }
-        });
+        endCalView.setOnClickListener(v -> new DatePickerDialog(
+                TermDetails.this,
+                endCalListener,
+                endCal.get(Calendar.YEAR),
+                endCal.get(Calendar.MONTH),
+                endCal.get(Calendar.DAY_OF_MONTH)
+        ).show());
 
-        endCalListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                endCal.set(Calendar.YEAR, year);
-                endCal.set(Calendar.MONTH, month);
-                endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        endCalListener = (view, year, month, dayOfMonth) -> {
+            endCal.set(Calendar.YEAR, year);
+            endCal.set(Calendar.MONTH, month);
+            endCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                termEnd.setText(dateFormatter.format(endCal.getTime()));
-            }
+            termEnd.setText(dateFormatter.format(endCal.getTime()));
         };
     }
 
