@@ -13,10 +13,8 @@ public class Term {
     @PrimaryKey(autoGenerate = true)
     private int termID;
     private String termTitle;
-
     @TypeConverters(Converter.class)
     private Date termStart;
-
     @TypeConverters(Converter.class)
     private Date termEnd;
 
@@ -25,7 +23,6 @@ public class Term {
         this.termTitle = termTitle;
         this.termStart = termStart;
         this.termEnd = termEnd;
-
     }
     @Override
     public String toString(){

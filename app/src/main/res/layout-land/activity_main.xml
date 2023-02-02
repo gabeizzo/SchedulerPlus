@@ -5,44 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".UI.MainActivity">
+    tools:context=".UI.MainActivity"
+    tools:layout_editor_absoluteX="-129dp"
+    tools:layout_editor_absoluteY="8dp">
+
+    <TextView
+        android:id="@+id/titleTxt"
+        android:layout_width="213dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="480dp"
+        android:layout_marginBottom="16dp"
+        android:singleLine="false"
+        android:text="@string/term_scheduler"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="280dp"
-        android:layout_height="293dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="66dp"
+        android:layout_width="289dp"
+        android:layout_height="202dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:forceDarkAllowed="false"
         android:src="@drawable/ic_baseline_school_24"
-        app:layout_constraintBottom_toTopOf="@+id/titleTxt"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:onClick="goToTermList"
-        android:text="@string/enter_text"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/enterCoursesButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:onClick="goToCourseList"
         android:text="@string/coursesButtonLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -56,24 +58,22 @@
         android:text="@string/assessmentsButtonLabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterCoursesButton"
-        app:layout_constraintVertical_bias="0.087" />
+        app:layout_constraintVertical_bias="0.047" />
 
-    <TextView
-        android:id="@+id/titleTxt"
-        android:layout_width="285dp"
-        android:layout_height="105dp"
-        android:singleLine="false"
-        android:text="@string/term_scheduler"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:onClick="goToTermList"
+        android:text="@string/enter_text"
         android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,9 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.text.SimpleDateFormat;import java.util.Date;
 import java.util.List;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
@@ -31,28 +29,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 assessmentNameView =itemView.findViewById(R.id.textView_assessment_title);
                 assessmentDateView = itemView.findViewById(R.id.textView_assessment_date);
                 assessmentItemLayout = itemView.findViewById(R.id.assessment_item_layout);
-               /* itemView.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view){
-                        int position=getAdapterPosition();
-                        final Assessment current=mAssessments.get(position);
-
-                        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-                        String startDate = dateFormatter.format(current.getAssessmentStartDate());
-                        String endDate = dateFormatter.format(current.getAssessmentEndDate());
-
-                        Intent intent=new Intent(context, AssessmentDetails.class);
-                        intent.putExtra("id", current.getAssessmentID());
-                        intent.putExtra("title", current.getAssessmentTitle());
-                        intent.putExtra("start", startDate);
-                        intent.putExtra("end", endDate);
-                        intent.putExtra("type", current.getAssessmentType());
-                        intent.putExtra("courseID", String.valueOf(current.getCourseID()));
-                        context.startActivity(intent);
-
-                    }
-                });*/
             }
         }
         private List<Assessment> mAssessments;
@@ -60,10 +36,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final LayoutInflater mInflater;
         private int selectedPosition = -1;
 
-        final Calendar startCal = Calendar.getInstance();
-        final Calendar endCal = Calendar.getInstance();
-
-        public AssessmentAdapter(Context context){
+    public AssessmentAdapter(Context context){
             mInflater=LayoutInflater.from(context);
             this.context=context;
         }
@@ -78,14 +51,14 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         @Override
         public void onBindViewHolder(@NonNull AssessmentViewHolder holder, int position) {
             final Assessment current = mAssessments.get(position);
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
             if(mAssessments!=null){
                 String title = current.getAssessmentTitle();
                 Date start = current.getAssessmentStartDate();
                 Date end = current.getAssessmentEndDate();
                 String type = current.getAssessmentType();
-                holder.assessmentDateView.setText(new StringBuilder().append(type).append("\n(").append(dateFormatter.format(start)).append(" - ").append(dateFormatter.format(end)).append(")").toString());
+                holder.assessmentDateView.setText(type + "\n(" + dateFormatter.format(start) + " - " + dateFormatter.format(end) + ")");
                 holder.assessmentNameView.setText(title);
             }
             else {

@@ -1,13 +1,17 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
+import android.gabriel_izzo_c196_scheduler.Utility.AlarmReceiver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -217,7 +221,6 @@ public class AssessmentDetails extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_assessment_details, menu);
         return true;
     }
@@ -225,7 +228,6 @@ public class AssessmentDetails extends AppCompatActivity {
         Intent intent=new Intent(AssessmentDetails.this, TermList.class);
         startActivity(intent);
     }
-
     public void goToCourses(MenuItem item) {
         Intent intent=new Intent(AssessmentDetails.this, CourseList.class);
         startActivity(intent);
@@ -262,6 +264,11 @@ public class AssessmentDetails extends AppCompatActivity {
                     courseSpinner.getSelectedItemPosition()+1);
 
             repo.insert(assessment);
+            Toast toast = Toast.makeText(this, "New Assessment Added", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+            startActivity(intent);
         } else {
             assessment = new Assessment(
                     assessmentID,
@@ -272,6 +279,11 @@ public class AssessmentDetails extends AppCompatActivity {
                     courseSpinner.getSelectedItemPosition()+1);
 
             repo.update(assessment);
+            Toast toast = Toast.makeText(this, "Assessment Updated", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+            startActivity(intent);
         }
     }
 
@@ -295,6 +307,30 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void setAssessmentAlerts(MenuItem item) {
+        long alertStart = new Date(assessmentStart.getText().toString()).getTime();
+        long alertEnd = new Date(assessmentEnd.getText().toString()).getTime();
+        String title = assessmentTitle.getText().toString();
+        //Start Alert
+        Intent startAlertIntent = new Intent(this, AlarmReceiver.class);
+        startAlertIntent.putExtra("text", title);
+        startAlertIntent.putExtra("title", "Assessment Start Alert!");
+
+        PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, startAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager startAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        startAlarmManager.set(AlarmManager.RTC_WAKEUP, alertStart, pendingStartIntent);
+        //End Alert
+        Intent endAlertIntent = new Intent(this, AlarmReceiver.class);
+        endAlertIntent.putExtra("text", title);
+        endAlertIntent.putExtra("title", "Assessment End Alert!");
+
+        PendingIntent pendingEndIntent = PendingIntent.getBroadcast(this, MainActivity.broadcastID++, endAlertIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager endAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        endAlarmManager.set(AlarmManager.RTC_WAKEUP, alertEnd, pendingEndIntent);
+
+        Toast toast = Toast.makeText(this, "Assessment Start and End Alerts Set!", Toast.LENGTH_LONG);
+        toast.show();
 
     }
 

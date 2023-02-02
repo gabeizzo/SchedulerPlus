@@ -20,21 +20,9 @@ public interface CourseDAO {
     @Delete
     void delete(Course course);
 
-    @Query("DELETE FROM courses")
-    void deleteAllCourses();
-
     @Query("SELECT * FROM courses ORDER BY courseID ASC")
     List<Course> getAllCourses();
 
     @Query ("SELECT * FROM courses WHERE termID= :termID")
     List<Course> getAllAssociatedCourses(int termID);
-
-    @Query("SELECT COUNT(*) FROM courses WHERE courseID= :id")
-    int isNewRecord(int id);
-
-    @Query("SELECT COUNT(*) FROM courses")
-    int getRowCount();
-
-    @Query("SELECT * FROM courses where courseID= :courseID")
-    Course getCourseByID(int courseID);
 }
