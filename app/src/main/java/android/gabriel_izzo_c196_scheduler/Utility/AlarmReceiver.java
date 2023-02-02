@@ -10,31 +10,30 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-
 public class AlarmReceiver extends BroadcastReceiver {
-    static int notificationID;
-    String channel_id ="channel_id";
+    static int NOTIFICATION_ID;
+    String CHANNEL_ID ="CHANNEL_ID";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        createNotificationChannel(context, channel_id);
+        createNotificationChannel(context, CHANNEL_ID);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channel_id)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_school_24)
                 .setContentText(intent.getStringExtra("text"))
-                .setContentTitle(intent.getStringExtra("title"));
+                .setContentTitle(intent.getStringExtra("title"))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
-        NotificationManagerCompat manager = NotificationManagerCompat.from(context);
-        manager.notify(notificationID++, builder.build());
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(NOTIFICATION_ID++, builder.build());
     }
-
-    private void createNotificationChannel(Context context, String channel_id) {
+    private void createNotificationChannel(Context context, String CHANNEL_ID) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = context.getResources().getString(R.string.channel_name);
-            String desc = context.getString(R.string.channel_description);
+            String description = context.getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(channel_id, name, importance);
-            channel.setDescription(desc);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
 
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);

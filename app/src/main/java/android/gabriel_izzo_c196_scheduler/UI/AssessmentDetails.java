@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
-import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.gabriel_izzo_c196_scheduler.Utility.AlarmReceiver;
 import android.os.Bundle;
@@ -18,16 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,21 +35,17 @@ public class AssessmentDetails extends AppCompatActivity {
     EditText assessmentEnd;
     String title;
     String type;
-    Spinner assessmentTypeSpinner;
-    Spinner courseSpinner;
     int courseID;
 
-    Repository repo;
-
-    Date start;
     ImageView startCalView;
     final Calendar startCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener startCalListener;
 
-    Date end;
     ImageView endCalView;
     final Calendar endCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener endCalListener;
+
+    Repository repo;
 
 
     @Override
@@ -124,7 +114,6 @@ public class AssessmentDetails extends AppCompatActivity {
 
     }
 
-
     private void displayCalendar() {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -161,7 +150,6 @@ public class AssessmentDetails extends AppCompatActivity {
             assessmentEnd.setText(dateFormatter.format(endCal.getTime()));
         };
     }
-
 
     @Override
     protected void onResume() {
@@ -233,7 +221,6 @@ public class AssessmentDetails extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -244,12 +231,10 @@ public class AssessmentDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void saveAssessment(View view) {
         Assessment assessment;
         Spinner assessmentTypeSpinner = findViewById(R.id.type_spinner);
         String type = assessmentTypeSpinner.getSelectedItem().toString();
-
         Spinner courseSpinner = findViewById(R.id.course_spinner);
 
         if (assessmentID == -1) {

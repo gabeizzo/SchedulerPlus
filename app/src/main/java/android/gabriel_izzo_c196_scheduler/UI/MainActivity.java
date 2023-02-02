@@ -1,7 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
@@ -10,9 +9,6 @@ import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.os.Bundle;
 import android.view.View;
-
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {

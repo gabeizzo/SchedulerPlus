@@ -1,22 +1,21 @@
 package android.gabriel_izzo_c196_scheduler.Entity;
 
-import android.gabriel_izzo_c196_scheduler.Utility.Converter;
-
+import android.gabriel_izzo_c196_scheduler.Utility.DateTypeConverter;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
-
 import java.util.Date;
 
 @Entity(tableName="terms")
 public class Term {
     @PrimaryKey(autoGenerate = true)
     private int termID;
-    private String termTitle;
-    @TypeConverters(Converter.class)
-    private Date termStart;
-    @TypeConverters(Converter.class)
-    private Date termEnd;
+    private final String termTitle;
+    @TypeConverters(DateTypeConverter.class)
+    private final Date termStart;
+    @TypeConverters(DateTypeConverter.class)
+    private final Date termEnd;
 
     public Term(int termID, String termTitle, Date termStart, Date termEnd){
         this.termID = termID;
@@ -24,6 +23,7 @@ public class Term {
         this.termStart = termStart;
         this.termEnd = termEnd;
     }
+    @NonNull
     @Override
     public String toString(){
         return "Term{" +
@@ -33,36 +33,19 @@ public class Term {
                 ", termEnd=" + termEnd +
                 '}';
     }
-
     public int getTermID() {
         return termID;
     }
-
     public void setTermID(int termID) {
         this.termID = termID;
     }
-
     public String getTermTitle() {
         return termTitle;
     }
-
-    public void setTermTitle(String termTitle) {
-        this.termTitle = termTitle;
-    }
-
     public Date getTermStart() {
         return termStart;
     }
-
-    public void setTermEnd(Date termEnd) {
-        this.termEnd = termEnd;
-    }
-
     public Date getTermEnd(){
         return termEnd;
-    }
-
-    public void setTermStart(Date termStart) {
-        this.termStart = termStart;
     }
 }

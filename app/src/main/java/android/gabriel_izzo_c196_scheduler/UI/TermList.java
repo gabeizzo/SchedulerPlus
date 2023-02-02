@@ -3,7 +3,6 @@ package android.gabriel_izzo_c196_scheduler.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import java.util.List;
 
 public class TermList extends AppCompatActivity {
@@ -55,21 +53,10 @@ public class TermList extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
         return true;
-            case R.id.tl_assessments:
-                intent = new Intent(this, AssessmentList.class);
-                this.startActivity(intent);
-                this.finish();
-                return true;
-            case R.id.tl_courses:
-                intent = new Intent(this, CourseList.class);
-                this.startActivity(intent);
-                this.finish();
-                return true;
     }
     return super.onOptionsItemSelected(item);
 }

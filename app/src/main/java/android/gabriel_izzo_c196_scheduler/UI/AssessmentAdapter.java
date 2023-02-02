@@ -9,17 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.text.SimpleDateFormat;import java.util.Date;
 import java.util.List;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
-        public class AssessmentViewHolder extends RecyclerView.ViewHolder{
+        public static class AssessmentViewHolder extends RecyclerView.ViewHolder{
             private final TextView assessmentNameView;
             private final TextView assessmentDateView;
             private final ConstraintLayout assessmentItemLayout;
@@ -70,13 +68,12 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                 holder.assessmentNameView.setTextColor(ContextCompat.getColor(holder.assessmentNameView.getContext(),R.color.white));
                 holder.assessmentItemLayout.setBackgroundColor(ContextCompat.getColor(holder.assessmentItemLayout.getContext(),R.color.triton_blue));
                 holder.assessmentDateView.setTextColor(ContextCompat.getColor(holder.assessmentDateView.getContext(),R.color.white));
-
-            } else {
+            }
+            else {
                 holder.itemView.setSelected(false);
                 holder.assessmentNameView.setTextColor(ContextCompat.getColor(holder.assessmentNameView.getContext(),R.color.black));
                 holder.assessmentDateView.setTextColor(ContextCompat.getColor(holder.assessmentDateView.getContext(),R.color.black));
             }
-
             holder.itemView.setOnClickListener(v -> {
                 if (selectedPosition >= 0)
                     notifyItemChanged(selectedPosition);
@@ -96,6 +93,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             });
 
         }
+
         @SuppressLint("NotifyDataSetChanged")
         public void setAssessments(List<Assessment> assessments){
             mAssessments=assessments;

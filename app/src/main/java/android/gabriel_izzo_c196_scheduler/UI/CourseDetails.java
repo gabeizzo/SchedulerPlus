@@ -18,18 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,17 +33,14 @@ import java.util.Date;
 import java.util.List;
 
 public class CourseDetails extends AppCompatActivity {
-
     EditText courseTitle;
     EditText courseStart;
     EditText courseEnd;
-    Spinner courseStatusSpinner;
     EditText instructorName;
     EditText instructorPhone;
     EditText instructorEmail;
     RecyclerView courseAssessmentsRecyclerView;
     EditText courseNotes;
-    TextView courseStatus;
 
     int courseID;
     String title;
@@ -60,12 +53,10 @@ public class CourseDetails extends AppCompatActivity {
 
     Repository repo;
 
-    Date start;
     ImageView startCalView;
     final Calendar startCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener startCalListener;
 
-    Date end;
     ImageView endCalView;
     final Calendar endCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener endCalListener;
@@ -119,22 +110,25 @@ public class CourseDetails extends AppCompatActivity {
         courseNotes.setText(notes);
 
         try{
-        if(status.equals("In Progress")){
-           courseStatusSpinner.setSelection(0);
-        }else if(status.equals("Completed")){
-            courseStatusSpinner.setSelection(1);
-        }else if(status.equals("Planned to Take")){
-            courseStatusSpinner.setSelection(2);
-        }else if(status.equals("Dropped")){
-            courseStatusSpinner.setSelection(3);
-        }
+            switch (status) {
+                case "In Progress":
+                    courseStatusSpinner.setSelection(0);
+                    break;
+                case "Completed":
+                    courseStatusSpinner.setSelection(1);
+                    break;
+                case "Planned to Take":
+                    courseStatusSpinner.setSelection(2);
+                    break;
+                case "Dropped":
+                    courseStatusSpinner.setSelection(3);
+                    break;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
 
         displayCalendar();
-
-
         repo = new Repository(getApplication());
 
         final AssessmentAdapter adapter = new AssessmentAdapter(this);
@@ -194,7 +188,6 @@ public class CourseDetails extends AppCompatActivity {
         notes = getIntent().getStringExtra("notes");
         termID = getIntent().getIntExtra("termID", -1);
 
-
         courseTitle.setText(title);
         courseStart.setText(getIntent().getStringExtra("start"));
         courseEnd.setText(getIntent().getStringExtra("end"));
@@ -223,8 +216,6 @@ public class CourseDetails extends AppCompatActivity {
         }
 
         displayCalendar();
-
-
         repo = new Repository(getApplication());
 
         final AssessmentAdapter adapter = new AssessmentAdapter(this);
@@ -403,6 +394,8 @@ public class CourseDetails extends AppCompatActivity {
         toast.show();
 
     }
+
+
 
     public void deleteCourse(MenuItem item) {
         Course course;

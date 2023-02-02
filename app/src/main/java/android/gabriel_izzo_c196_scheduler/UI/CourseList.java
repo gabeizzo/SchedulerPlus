@@ -1,7 +1,6 @@
 package android.gabriel_izzo_c196_scheduler.UI;
 
 import android.content.Intent;
-import android.gabriel_izzo_c196_scheduler.DAO.CourseDAO;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
 import android.gabriel_izzo_c196_scheduler.R;
@@ -9,11 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class CourseList extends AppCompatActivity {

@@ -4,16 +4,15 @@ import androidx.room.TypeConverter;
 
 import java.util.Date;
 
-public class Converter {
+public class DateTypeConverter {
+
     @TypeConverter
     public static Date toDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);
     }
+
     @TypeConverter
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
 }
-
-//LocalDate localDate = LocalDate.now();
-// For reference DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mm yyyy"); String formattedString = localDate.format(formatter);

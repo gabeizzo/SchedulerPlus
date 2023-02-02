@@ -36,12 +36,10 @@ public class TermDetails extends AppCompatActivity {
     RecyclerView addedCourses;
     RecyclerView allCourses;
 
-    Date start;
     ImageView startCalView;
     final Calendar startCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener startCalListener;
 
-    Date end;
     ImageView endCalView;
     final Calendar endCal = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener endCalListener;

@@ -9,19 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
-    public class CourseViewHolder extends RecyclerView.ViewHolder{
+    public static class CourseViewHolder extends RecyclerView.ViewHolder{
         private final TextView courseNameView;
         private final TextView courseDateView;
         private final ConstraintLayout courseItemLayout;
@@ -31,37 +28,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             courseNameView =itemView.findViewById(R.id.textView_course_name);
             courseDateView = itemView.findViewById(R.id.textView_course_date);
             courseItemLayout = itemView.findViewById(R.id.course_item_layout);
-           /* itemView.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View view){
-                    int position=getAdapterPosition();
-                    final Course current=mCourses.get(position);
-                    Intent intent=new Intent(context, CourseDetails.class);
-                    intent.putExtra("id", current.getCourseID());
-                    intent.putExtra("title", current.getCourseTitle());
-                    intent.putExtra("start", current.getCourseStart());
-                    intent.putExtra("end", current.getCourseEnd());
-                    intent.putExtra("status", current.getCourseStatus());
-                    intent.putExtra("instructor", current.getInstructorName());
-                    intent.putExtra("phone", current.getInstructorPhone());
-                    intent.putExtra("email", current.getInstructorEmail());
-                    intent.putExtra("notes", current.getCourseNote());
-                    intent.putExtra("termID", String.valueOf(current.getTermID()));
-                    context.startActivity(intent);
-
-                }
-            });*/
         }
     }
     private List<Course> mCourses;
     private final Context context;
     private final LayoutInflater mInflater;
     private int selectedPosition = -1;
-
-    final Calendar startCal = Calendar.getInstance();
-    final Calendar endCal = Calendar.getInstance();
-
 
     public CourseAdapter(Context context){
         mInflater=LayoutInflater.from(context);
@@ -78,13 +50,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     @Override
     public void onBindViewHolder(@NonNull CourseAdapter.CourseViewHolder holder, int position) {
         final Course current = mCourses.get(position);
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 
         if(mCourses!=null){
             String title = current.getCourseTitle();
             Date start = current.getCourseStart();
             Date end = current.getCourseEnd();
-            holder.courseDateView.setText(new StringBuilder().append("(").append(dateFormatter.format(start)).append(" - ").append(dateFormatter.format(end)).append(")").toString());
+            holder.courseDateView.setText("(" + dateFormatter.format(start) + " - " + dateFormatter.format(end) + ")");
             holder.courseNameView.setText(title);
         }
         else {
@@ -96,13 +68,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             holder.courseNameView.setTextColor(ContextCompat.getColor(holder.courseNameView.getContext(),R.color.white));
             holder.courseItemLayout.setBackgroundColor(ContextCompat.getColor(holder.courseItemLayout.getContext(),R.color.triton_blue));
             holder.courseDateView.setTextColor(ContextCompat.getColor(holder.courseDateView.getContext(),R.color.white));
-
-        } else {
+        }
+        else {
             holder.itemView.setSelected(false);
             holder.courseNameView.setTextColor(ContextCompat.getColor(holder.courseNameView.getContext(),R.color.black));
             holder.courseDateView.setTextColor(ContextCompat.getColor(holder.courseDateView.getContext(),R.color.black));
         }
-
         holder.itemView.setOnClickListener(v -> {
             if (selectedPosition >= 0)
                 notifyItemChanged(selectedPosition);
