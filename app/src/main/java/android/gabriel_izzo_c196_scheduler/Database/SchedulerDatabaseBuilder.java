@@ -12,7 +12,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version=13, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class}, version=17, exportSchema = false)
 public abstract class SchedulerDatabaseBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();
     public abstract CourseDAO courseDAO();

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.gabriel_izzo_c196_scheduler.Database.Repository;
 import android.gabriel_izzo_c196_scheduler.Entity.Assessment;
 import android.gabriel_izzo_c196_scheduler.Entity.Course;
+import android.gabriel_izzo_c196_scheduler.Entity.Term;
 import android.gabriel_izzo_c196_scheduler.R;
 import android.gabriel_izzo_c196_scheduler.Utility.AlarmReceiver;
 import android.os.Bundle;
@@ -100,17 +101,39 @@ public class AssessmentDetails extends AppCompatActivity {
         repo = new Repository(getApplication());
 
         List<Course> allCourses = repo.getAllCourses();
-        List<CharSequence> courseTitle = new ArrayList<>();
+        List<Integer> courseIDs = new ArrayList<>();
         for(Course course : allCourses) {
-            courseTitle.add(course.getCourseTitle() + " [" +course.getCourseID()+"]");
+            courseIDs.add(course.getCourseID());
         }
         Spinner courseSpinner = findViewById(R.id.course_spinner);
-        ArrayAdapter<CharSequence> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTitle);
+        ArrayAdapter<Integer> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseIDs);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(courseAdapter);
-        if (getIntent().getStringExtra("title") != null) {
-            courseSpinner.setSelection(courseID-1);
-        }
+        int position = courseAdapter.getPosition(courseID);
+        courseSpinner.setSelection(position);
+
+        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                  /*  Integer courseID = (Integer) courseSpinner.getSelectedItem();
+                    int position = courseAdapter.getPosition(courseID);
+                    courseSpinner.setSelection(position);*/
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                for(Course c : allCourses) {
+                    if(c.getCourseID()==courseID){
+                        int position = courseAdapter.getPosition(courseID);
+                        courseSpinner.setSelection(position);
+                    }
+
+                }
+            }
+        });
+
+
 
     }
 
@@ -160,6 +183,8 @@ public class AssessmentDetails extends AppCompatActivity {
         ArrayAdapter<CharSequence> assessmentAdapter = ArrayAdapter.createFromResource(this, R.array.type_array, android.R.layout.simple_spinner_item);
         assessmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assessmentTypeSpinner.setAdapter(assessmentAdapter);
+
+
         assessmentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -190,17 +215,40 @@ public class AssessmentDetails extends AppCompatActivity {
             assessmentTypeSpinner.setSelection(1);
         }
         List<Course> allCourses = repo.getAllCourses();
-        List<CharSequence> courseTitle = new ArrayList<>();
+        List<Integer> courseIDs = new ArrayList<>();
         for(Course course : allCourses) {
-            courseTitle.add(course.getCourseTitle() + " [" +course.getCourseID()+"]");
+            courseIDs.add(course.getCourseID());
         }
         Spinner courseSpinner = findViewById(R.id.course_spinner);
-        ArrayAdapter<CharSequence> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTitle);
+        ArrayAdapter<Integer> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseIDs);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(courseAdapter);
-        if (getIntent().getStringExtra("title") != null) {
-            courseSpinner.setSelection(courseID-1);
-        }
+        int position = courseAdapter.getPosition(courseID);
+        courseSpinner.setSelection(position);
+
+        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //int selectedCourseID = courseIDs.get(i);
+
+                /* Integer courseID = (Integer) courseSpinner.getSelectedItem();
+                int position = courseAdapter.getPosition(courseID);
+                courseSpinner.setSelection(position);*/
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                /*for(Course c : allCourses) {
+                    if(c.getCourseID()==courseID){
+                        int position = courseAdapter.getPosition(courseID);
+                        courseSpinner.setSelection(position);
+                    }
+
+                }*/
+            }
+        });
+
 
         displayCalendar();
 
@@ -235,7 +283,23 @@ public class AssessmentDetails extends AppCompatActivity {
         Assessment assessment;
         Spinner assessmentTypeSpinner = findViewById(R.id.type_spinner);
         String type = assessmentTypeSpinner.getSelectedItem().toString();
+
+        List<Course> allCourses = repo.getAllCourses();
+        List<Integer> courseIDs = new ArrayList<>();
+        for(Course c : allCourses) {
+            courseIDs.add(c.getCourseID());
+        }
         Spinner courseSpinner = findViewById(R.id.course_spinner);
+        ArrayAdapter<Integer> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseIDs);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseSpinner.setAdapter(courseAdapter);
+        Integer courseID = (Integer) courseSpinner.getSelectedItem();
+        // Get the selected course from the list of courses
+        Course selectedCourse = allCourses.get(courseIDs.indexOf(courseID+1));
+
+        // Get the courseID of the selected course
+        int assessmentCourseID = selectedCourse.getCourseID();
+
 
         if (assessmentID == -1) {
             int newID = repo.getAllAssessments().get(repo.getAllAssessments().size() - 1).getAssessmentID() + 1;
@@ -246,10 +310,10 @@ public class AssessmentDetails extends AppCompatActivity {
                     new Date(assessmentStart.getText().toString()),
                     new Date(assessmentEnd.getText().toString()),
                     type,
-                    courseSpinner.getSelectedItemPosition()+1);
+                    assessmentCourseID);
 
             repo.insert(assessment);
-            Toast toast = Toast.makeText(this, "New Assessment Added", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "New Assessment Added!", Toast.LENGTH_LONG);
             toast.show();
 
             Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
@@ -261,10 +325,10 @@ public class AssessmentDetails extends AppCompatActivity {
                     new Date(assessmentStart.getText().toString()),
                     new Date(assessmentEnd.getText().toString()),
                     type,
-                    courseSpinner.getSelectedItemPosition()+1);
+                    assessmentCourseID);
 
             repo.update(assessment);
-            Toast toast = Toast.makeText(this, "Assessment Updated", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "Assessment Updated!", Toast.LENGTH_LONG);
             toast.show();
 
             Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
@@ -279,7 +343,7 @@ public class AssessmentDetails extends AppCompatActivity {
                 assessment = new Assessment(assessmentID, assessmentTitle.getText().toString(), new Date(assessmentStart.getText().toString()), new Date(assessmentEnd.getText().toString()), type ,courseID);
                 repo.delete(assessment);
 
-                Toast toast = Toast.makeText(this, "Assessment Deleted Successfully", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "Assessment Deleted Successfully!", Toast.LENGTH_LONG);
                 toast.show();
 
                 Intent intent=new Intent(AssessmentDetails.this, AssessmentList.class);

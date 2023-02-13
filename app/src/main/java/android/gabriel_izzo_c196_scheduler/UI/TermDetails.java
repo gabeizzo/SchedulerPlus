@@ -29,6 +29,7 @@ import java.util.Date;
 
 public class TermDetails extends AppCompatActivity {
     int termID;
+    TextView termIDTxt;
     EditText termTitle;
     EditText termStart;
     EditText termEnd;
@@ -54,6 +55,7 @@ public class TermDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         termHint = findViewById(R.id.termHintLbl);
+        termIDTxt = findViewById(R.id.termIDTxt);
         termTitle = findViewById(R.id.termTitleTxt);
         termStart = findViewById(R.id.termStartTxt);
         termEnd = findViewById(R.id.termEndTxt);
@@ -62,6 +64,7 @@ public class TermDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         termID = getIntent().getIntExtra("id", -1);
+        termIDTxt.setText(String.valueOf(termID));
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));
@@ -112,6 +115,8 @@ public class TermDetails extends AppCompatActivity {
         setContentView(R.layout.activity_term_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        termHint = findViewById(R.id.termHintLbl);
+        termIDTxt = findViewById(R.id.termIDTxt);
         termTitle = findViewById(R.id.termTitleTxt);
         termStart = findViewById(R.id.termStartTxt);
         termEnd = findViewById(R.id.termEndTxt);
@@ -119,8 +124,8 @@ public class TermDetails extends AppCompatActivity {
         addedCourses = findViewById(R.id.addedCourses);
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
-        termHint = findViewById(R.id.termHintLbl);
         termID = getIntent().getIntExtra("id", -1);
+        termIDTxt.setText(String.valueOf(termID));
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));

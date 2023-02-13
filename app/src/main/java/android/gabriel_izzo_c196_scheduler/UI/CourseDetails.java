@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +40,8 @@ public class CourseDetails extends AppCompatActivity {
     EditText instructorEmail;
     RecyclerView courseAssessmentsRecyclerView;
     EditText courseNotes;
+    Spinner termSpinner;
+    Spinner courseStatusSpinner;
 
     int courseID;
     String title;
@@ -67,20 +68,6 @@ public class CourseDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
 
-        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseStatusSpinner.setAdapter(courseAdapter);
-        courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String status = adapterView.getItemAtPosition(i).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
         courseTitle = findViewById(R.id.courseTitleTxt);
         courseStart = findViewById(R.id.courseStartTxt);
         courseEnd = findViewById(R.id.courseEndTxt);
@@ -91,6 +78,7 @@ public class CourseDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         courseNotes = findViewById(R.id.courseNotesTxt);
+        termSpinner = findViewById(R.id.term_spinner);
 
         courseID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -136,38 +124,65 @@ public class CourseDetails extends AppCompatActivity {
         courseAssessmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setAssessments(repo.getAssociatedAssessments(courseID));
 
+        courseStatusSpinner = findViewById(R.id.course_status_spinner);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatusSpinner.setAdapter(courseAdapter);
+        courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                status = adapterView.getItemAtPosition(i).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         List<Term> allTerms = repo.getAllTerms();
-        List<CharSequence> termTitle = new ArrayList<>();
+        List<Integer> termIDs = new ArrayList<>();
         for(Term term : allTerms) {
-            termTitle.add(term.getTermTitle() + " [" +term.getTermID()+"]");
+            termIDs.add(term.getTermID());
         }
-        Spinner termSpinner = findViewById(R.id.term_spinner);
-        ArrayAdapter<CharSequence> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termTitle);
+        termSpinner = findViewById(R.id.term_spinner);
+        ArrayAdapter<Integer> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termIDs);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         termSpinner.setAdapter(termAdapter);
-        if (getIntent().getStringExtra("title") != null) {
-            termSpinner.setSelection(termID-1);
-        }
+        int position = termAdapter.getPosition(termID);
+        termSpinner.setSelection(position);
+        termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                termID = (int) adapterView.getItemAtPosition(i);
+
+               /* Integer termID = (Integer) termSpinner.getSelectedItem();
+                    int position = termAdapter.getPosition(termID);
+                    termSpinner.setSelection(position);*/
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                try {
+                    for (Term term : allTerms) {
+                        if (term.getTermID() == termID) {
+                            int position = termAdapter.getPosition(termID);
+                            termSpinner.setSelection(position);
+                        }
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
+    @SuppressLint("CutPasteId")
     @Override
     protected void onResume() {
         super.onResume();
         setContentView(R.layout.activity_course_details);
 
-        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseStatusSpinner.setAdapter(courseAdapter);
-        courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String status = adapterView.getItemAtPosition(i).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
         courseTitle = findViewById(R.id.courseTitleTxt);
         courseStart = findViewById(R.id.courseStartTxt);
         courseEnd = findViewById(R.id.courseEndTxt);
@@ -195,6 +210,21 @@ public class CourseDetails extends AppCompatActivity {
         instructorPhone.setText(phone);
         instructorEmail.setText(email);
         courseNotes.setText(notes);
+
+        courseStatusSpinner = findViewById(R.id.course_status_spinner);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatusSpinner.setAdapter(courseAdapter);
+
+        courseStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                status = adapterView.getItemAtPosition(i).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         try{
             switch (status) {
@@ -224,17 +254,40 @@ public class CourseDetails extends AppCompatActivity {
         adapter.setAssessments(repo.getAssociatedAssessments(courseID));
 
         List<Term> allTerms = repo.getAllTerms();
-        List<CharSequence> termTitle = new ArrayList<>();
+        List<Integer> termIDs = new ArrayList<>();
         for(Term term : allTerms) {
-            termTitle.add(term.getTermTitle() + " [" +term.getTermID()+"]");
+            termIDs.add(term.getTermID());
         }
-        Spinner termSpinner = findViewById(R.id.term_spinner);
-        ArrayAdapter<CharSequence> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termTitle);
+
+        termSpinner = findViewById(R.id.term_spinner);
+        ArrayAdapter<Integer> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termIDs);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         termSpinner.setAdapter(termAdapter);
-        if (getIntent().getStringExtra("title") != null) {
-            termSpinner.setSelection(termID-1);
-        }
+        int position = termAdapter.getPosition(termID);
+        termSpinner.setSelection(position);
+        termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                termID = (int) adapterView.getItemAtPosition(i);
+
+
+               /* Integer termID = (Integer) termSpinner.getSelectedItem();
+                    int position = termAdapter.getPosition(termID);
+                    termSpinner.setSelection(position);*/
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                for(Term term : allTerms) {
+                    if(term.getTermID()==termID){
+                        int position = termAdapter.getPosition(termID);
+                        termSpinner.setSelection(position);
+                    }
+
+                }
+            }
+        });
     }
 
     private void displayCalendar() {
@@ -285,61 +338,109 @@ public class CourseDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(CourseDetails.this, TermDetails.class);
-                intent.putExtra("id", termID);
+                Intent intent = new Intent(CourseDetails.this, CourseList.class);
                 startActivity(intent);
-                //this.finish();
+                this.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveCourse(View view) {
-        Course course;
-        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
-        String status = courseStatusSpinner.getSelectedItem().toString();
+    private boolean inputNotValid() {
         Spinner termSpinner = findViewById(R.id.term_spinner);
-        int termID = termSpinner.getSelectedItemPosition()+1;
-
-        if (courseID == -1) {
-            int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
-            course = new Course(newID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
-                    new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
-            repo.insert(course);
-
-            Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
-            toast.show();
-
-            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
-            intent.putExtra("id", termID);
-            startActivity(intent);
-
-        } else {
-            course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
-                    new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                    instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(),termID);
-            repo.update(course);
-
-            Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
-            toast.show();
-
-            Intent intent = new Intent(CourseDetails.this, TermDetails.class);
-            intent.putExtra("id", termID);
-            startActivity(intent);
-        }
+        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
+        return courseTitle.getText().toString().isEmpty() ||
+                courseStart.getText().toString().isEmpty() ||
+                courseEnd.getText().toString().isEmpty() ||
+                courseStatusSpinner.getSelectedItem() == null ||
+                courseStatusSpinner.getSelectedItem().toString().isEmpty() ||
+                termSpinner.getSelectedItem() == null ||
+                termSpinner.getSelectedItem().toString().isEmpty() ||
+                instructorName.getText().toString().isEmpty() ||
+                instructorEmail.getText().toString().isEmpty() ||
+                instructorPhone.getText().toString().isEmpty();
     }
 
+    public void saveCourse(View view) {
+        Course course;
+        courseStatusSpinner = findViewById(R.id.course_status_spinner);
+        String status = courseStatusSpinner.getSelectedItem().toString();
+        int termID = (int) termSpinner.getSelectedItem();
+
+        /*List<Term> allTerms = repo.getAllTerms();
+        List<Integer> termIDs = new ArrayList<>();
+        for(Term t : allTerms) {
+            termIDs.add(t.getTermID());
+        }
+        ArrayAdapter<Integer> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termIDs);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        termSpinner.setAdapter(termAdapter);*/
+        //Integer termID = (Integer) termSpinner.getSelectedItem();
+        /*Term selectedTerm = allTerms.get(termIDs.indexOf(termID)+1);
+
+        int courseTermID = selectedTerm.getTermID();
+*/
+        if(inputNotValid()){
+            if( termSpinner.getSelectedItem() == null || termSpinner.getSelectedItem().toString().isEmpty()) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("No Term to associate this Course with. Create the Term first to associate a Courses with it.");
+                dialog.setTitle("No Terms Created Yet!");
+                dialog.show();}
+            else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("To save this Course, all fields must be filled out.");
+                dialog.setTitle("Uh-Oh!");
+                dialog.show();
+            }
+
+        }else {
+
+            if (courseID == -1) {
+                int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
+                course = new Course(newID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
+                        new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
+                        instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
+                repo.insert(course);
+
+                Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
+                toast.show();
+
+                if(termID > 0) {
+                    Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                    intent.putExtra("id", termID);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                    startActivity(intent);
+                }
+
+            } else {
+                course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
+                        new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
+                        instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
+                repo.update(course);
+
+                Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                intent.putExtra("id", termID);
+                startActivity(intent);
+            }
+        }
+    }
+    //Terms Menu option
     public void goToTerms(MenuItem item) {
         Intent intent = new Intent(CourseDetails.this, TermList.class);
         startActivity(intent);
     }
-
+    //Assessments Menu option
     public void goToAssessments(MenuItem item) {
         Intent intent = new Intent(CourseDetails.this, AssessmentList.class);
         startActivity(intent);
     }
 
+    //Share Menu option
     public void shareCourseDetails(MenuItem item) {
         EditText noteToShare = findViewById(R.id.courseNotesTxt);
         EditText title = findViewById(R.id.courseTitleTxt);
@@ -361,7 +462,7 @@ public class CourseDetails extends AppCompatActivity {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_TEXT, message);
 
-        //need this to prompts email client only
+        //prompts email client only, without this line other options will show
         email.setType("message/rfc822");
 
         startActivity(Intent.createChooser(email, "Choose an Email client :"));

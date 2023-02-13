@@ -65,7 +65,7 @@
     <string name="type_lbl">Type:</string>
     <string name="assessment_type">Objective, Performance etc.</string>
     <string name="course_lbl">Course:</string>
-    <string name="termID_lbl">Term:</string>
+    <string name="termID_lbl">Term ID:</string>
     <string name="term_spinner_hint">Select term</string>
     <string name="choose_status">Choose status</string>
     <string name="term_hint_lbl">This term must be saved first before adding courses to it in the Course Details screen</string>
@@ -75,6 +75,7 @@
     <string name="coursesButtonLabel">Courses</string>
     <string name="channel_name">channel</string>
     <string name="channel_description">channelDesc</string>
+    <string name="auto_generated">Auto-Generated</string>
     <string-array name="type_array">
         <item>Objective Assessment</item>
         <item>Performance Assessment</item>
