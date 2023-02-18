@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +43,7 @@ public class CourseDetails extends AppCompatActivity {
     EditText courseNotes;
     Spinner termSpinner;
     Spinner courseStatusSpinner;
+    TextView courseIDTxt;
 
     int courseID;
     String title;
@@ -67,6 +69,8 @@ public class CourseDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         courseTitle = findViewById(R.id.courseTitleTxt);
         courseStart = findViewById(R.id.courseStartTxt);
@@ -78,9 +82,14 @@ public class CourseDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         courseNotes = findViewById(R.id.courseNotesTxt);
-        termSpinner = findViewById(R.id.term_spinner);
+        courseIDTxt = findViewById(R.id.courseIDTxt);
 
         courseID = getIntent().getIntExtra("id", -1);
+        if(courseID == -1){
+            courseIDTxt.setText(R.string.auto_gen_txt);
+        }else{
+            courseIDTxt.setText(String.valueOf(courseID));
+        }
         title = getIntent().getStringExtra("title");
         status = getIntent().getStringExtra("status");
         name = getIntent().getStringExtra("instructor");
@@ -193,8 +202,14 @@ public class CourseDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         courseNotes = findViewById(R.id.courseNotesTxt);
-
+        courseIDTxt = findViewById(R.id.courseIDTxt);
         courseID = getIntent().getIntExtra("id", -1);
+        if(courseID == -1){
+            courseIDTxt.setText(R.string.auto_gen_txt);
+        }else{
+            courseIDTxt.setText(String.valueOf(courseID));
+
+        }
         title = getIntent().getStringExtra("title");
         status = getIntent().getStringExtra("status");
         name = getIntent().getStringExtra("instructor");
@@ -379,7 +394,8 @@ public class CourseDetails extends AppCompatActivity {
         /*Term selectedTerm = allTerms.get(termIDs.indexOf(termID)+1);
 
         int courseTermID = selectedTerm.getTermID();
-*/
+*/      try{
+
         if(inputNotValid()){
             if( termSpinner.getSelectedItem() == null || termSpinner.getSelectedItem().toString().isEmpty()) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -396,8 +412,8 @@ public class CourseDetails extends AppCompatActivity {
         }else {
 
             if (courseID == -1) {
-                int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
-                course = new Course(newID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
+               // int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
+                course = new Course(0, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                         new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
                         instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
                 repo.insert(course);
@@ -409,12 +425,13 @@ public class CourseDetails extends AppCompatActivity {
                     Intent intent = new Intent(CourseDetails.this, TermDetails.class);
                     intent.putExtra("id", termID);
                     startActivity(intent);
-                }else{
+                }
+                else{
                     Intent intent = new Intent(CourseDetails.this, CourseList.class);
                     startActivity(intent);
                 }
-
-            } else {
+            }
+            else {
                 course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
                         new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
                         instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
@@ -426,7 +443,11 @@ public class CourseDetails extends AppCompatActivity {
                 Intent intent = new Intent(CourseDetails.this, TermDetails.class);
                 intent.putExtra("id", termID);
                 startActivity(intent);
+                }
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
     //Terms Menu option

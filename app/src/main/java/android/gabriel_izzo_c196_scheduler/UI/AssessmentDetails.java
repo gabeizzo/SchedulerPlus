@@ -37,6 +37,7 @@ public class AssessmentDetails extends AppCompatActivity {
     String title;
     String type;
     int courseID;
+    Spinner courseSpinner;
 
     ImageView startCalView;
     final Calendar startCal = Calendar.getInstance();

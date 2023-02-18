@@ -54,6 +54,7 @@ public class TermDetails extends AppCompatActivity {
         setContentView(R.layout.activity_term_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         termHint = findViewById(R.id.termHintLbl);
         termIDTxt = findViewById(R.id.termIDTxt);
         termTitle = findViewById(R.id.termTitleTxt);
@@ -64,13 +65,17 @@ public class TermDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         termID = getIntent().getIntExtra("id", -1);
-        termIDTxt.setText(String.valueOf(termID));
+        if(termID == -1){
+            termIDTxt.setText(R.string.auto_gen_txt);
+        }else{
+            termIDTxt.setText(String.valueOf(termID));
+        }
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));
         
         Term term = null;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         displayCalendar();
         setHintVisibility(termID);
 
@@ -95,7 +100,7 @@ public class TermDetails extends AppCompatActivity {
         }
         else{
         saveButton.setText(R.string.save_btn);
-    }
+        }
 
         final CourseAdapter addedCoursesAdapter = new CourseAdapter(this);
         addedCourses.setAdapter(addedCoursesAdapter);
@@ -125,7 +130,11 @@ public class TermDetails extends AppCompatActivity {
         startCalView = findViewById(R.id.startCalView);
         endCalView = findViewById(R.id.endCalView);
         termID = getIntent().getIntExtra("id", -1);
-        termIDTxt.setText(String.valueOf(termID));
+        if(termID == -1){
+            termIDTxt.setText(R.string.auto_gen_txt);
+        }else{
+            termIDTxt.setText(String.valueOf(termID));
+        }
         termTitle.setText(getIntent().getStringExtra("title"));
         termStart.setText(getIntent().getStringExtra("start"));
         termEnd.setText(getIntent().getStringExtra("end"));
@@ -231,7 +240,9 @@ public class TermDetails extends AppCompatActivity {
 
         try {
             if (termID == -1) {
-                int newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
+                int newID=1;
+                if (repo.getAllTerms().size()!=0)
+                    newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
                 term = new Term(newID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
                 repo.insert(term);
 
