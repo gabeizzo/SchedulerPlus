@@ -158,15 +158,11 @@ public class CourseDetails extends AppCompatActivity {
         termSpinner.setAdapter(termAdapter);
         int position = termAdapter.getPosition(termID);
         termSpinner.setSelection(position);
+
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 termID = (int) adapterView.getItemAtPosition(i);
-
-               /* Integer termID = (Integer) termSpinner.getSelectedItem();
-                    int position = termAdapter.getPosition(termID);
-                    termSpinner.setSelection(position);*/
-
             }
 
             @Override
@@ -286,9 +282,6 @@ public class CourseDetails extends AppCompatActivity {
                 termID = (int) adapterView.getItemAtPosition(i);
 
 
-               /* Integer termID = (Integer) termSpinner.getSelectedItem();
-                    int position = termAdapter.getPosition(termID);
-                    termSpinner.setSelection(position);*/
 
             }
 
@@ -362,8 +355,6 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     private boolean inputNotValid() {
-        Spinner termSpinner = findViewById(R.id.term_spinner);
-        Spinner courseStatusSpinner = findViewById(R.id.course_status_spinner);
         return courseTitle.getText().toString().isEmpty() ||
                 courseStart.getText().toString().isEmpty() ||
                 courseEnd.getText().toString().isEmpty() ||
@@ -378,24 +369,10 @@ public class CourseDetails extends AppCompatActivity {
 
     public void saveCourse(View view) {
         Course course;
-        courseStatusSpinner = findViewById(R.id.course_status_spinner);
         String status = courseStatusSpinner.getSelectedItem().toString();
         int termID = (int) termSpinner.getSelectedItem();
 
-        /*List<Term> allTerms = repo.getAllTerms();
-        List<Integer> termIDs = new ArrayList<>();
-        for(Term t : allTerms) {
-            termIDs.add(t.getTermID());
-        }
-        ArrayAdapter<Integer> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termIDs);
-        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        termSpinner.setAdapter(termAdapter);*/
-        //Integer termID = (Integer) termSpinner.getSelectedItem();
-        /*Term selectedTerm = allTerms.get(termIDs.indexOf(termID)+1);
-
-        int courseTermID = selectedTerm.getTermID();
-*/      try{
-
+      try{
         if(inputNotValid()){
             if( termSpinner.getSelectedItem() == null || termSpinner.getSelectedItem().toString().isEmpty()) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
