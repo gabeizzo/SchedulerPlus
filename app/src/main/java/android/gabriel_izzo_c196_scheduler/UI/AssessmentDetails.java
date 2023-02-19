@@ -296,66 +296,64 @@ public class AssessmentDetails extends AppCompatActivity {
                 assessmentStart.getText().toString().isEmpty() ||
                 assessmentEnd.getText().toString().isEmpty() ||
                 assessmentTypeSpinner.getSelectedItem() == null ||
-                courseSpinner.getSelectedItem().toString().isEmpty();
+                courseSpinner.getSelectedItem()==null;
     }
 
     public void saveAssessment(View view) {
         Assessment assessment;
-        String type = assessmentTypeSpinner.getSelectedItem().toString();
-        int assessmentCourseID = (int) courseSpinner.getSelectedItem();
-
         try {
-            if(inputNotValid()){
-                if( courseSpinner.getSelectedItem() == null || courseSpinner.getSelectedItem().toString().isEmpty()) {
+            if (inputNotValid()) {
+                if (courseSpinner.getSelectedItem() == null) {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                     dialog.setMessage("No Course to associate this Assessment with. Create the Term and Course first to associate this Assessment with a Course.");
                     dialog.setTitle("No Courses Created Yet!");
-                    dialog.show();}
-                else{
+                    dialog.show();
+                } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                     dialog.setMessage("To save this Assessment, all fields must be filled out.");
                     dialog.setTitle("Uh-Oh!");
                     dialog.show();
                 }
 
-            }else {
-
-
-            if (assessmentID == -1) {
-                //int newID = repo.getAllAssessments().get(repo.getAllAssessments().size() - 1).getAssessmentID() + 1;
-                assessment = new Assessment(
-                        0,
-                        assessmentTitle.getText().toString(),
-                        new Date(assessmentStart.getText().toString()),
-                        new Date(assessmentEnd.getText().toString()),
-                        type,
-                        assessmentCourseID);
-
-                repo.insert(assessment);
-                Toast toast = Toast.makeText(this, "New Assessment Added!", Toast.LENGTH_LONG);
-                toast.show();
-
-                Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
-                startActivity(intent);
             } else {
-                assessment = new Assessment(
-                        assessmentID,
-                        assessmentTitle.getText().toString(),
-                        new Date(assessmentStart.getText().toString()),
-                        new Date(assessmentEnd.getText().toString()),
-                        type,
-                        assessmentCourseID);
+                String type = assessmentTypeSpinner.getSelectedItem().toString();
+                int assessmentCourseID = (int) courseSpinner.getSelectedItem();
 
-                repo.update(assessment);
-                Toast toast = Toast.makeText(this, "Assessment Updated!", Toast.LENGTH_LONG);
-                toast.show();
 
-                Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
-                startActivity(intent);
+                if (assessmentID == -1) {
+                    //int newID = repo.getAllAssessments().get(repo.getAllAssessments().size() - 1).getAssessmentID() + 1;
+                    assessment = new Assessment(
+                            0,
+                            assessmentTitle.getText().toString(),
+                            new Date(assessmentStart.getText().toString()),
+                            new Date(assessmentEnd.getText().toString()),
+                            type,
+                            assessmentCourseID);
+
+                    repo.insert(assessment);
+                    Toast toast = Toast.makeText(this, "New Assessment Added!", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+                    startActivity(intent);
+                } else {
+                    assessment = new Assessment(
+                            assessmentID,
+                            assessmentTitle.getText().toString(),
+                            new Date(assessmentStart.getText().toString()),
+                            new Date(assessmentEnd.getText().toString()),
+                            type,
+                            assessmentCourseID);
+
+                    repo.update(assessment);
+                    Toast toast = Toast.makeText(this, "Assessment Updated!", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+                    startActivity(intent);
                 }
             }
-        }
-        catch(Exception e){
+        }catch(Exception e){
             e.printStackTrace();
         }
     }

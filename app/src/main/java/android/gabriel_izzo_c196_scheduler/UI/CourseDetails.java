@@ -359,9 +359,7 @@ public class CourseDetails extends AppCompatActivity {
                 courseStart.getText().toString().isEmpty() ||
                 courseEnd.getText().toString().isEmpty() ||
                 courseStatusSpinner.getSelectedItem() == null ||
-                courseStatusSpinner.getSelectedItem().toString().isEmpty() ||
                 termSpinner.getSelectedItem() == null ||
-                termSpinner.getSelectedItem().toString().isEmpty() ||
                 instructorName.getText().toString().isEmpty() ||
                 instructorEmail.getText().toString().isEmpty() ||
                 instructorPhone.getText().toString().isEmpty();
@@ -369,61 +367,59 @@ public class CourseDetails extends AppCompatActivity {
 
     public void saveCourse(View view) {
         Course course;
-        String status = courseStatusSpinner.getSelectedItem().toString();
-        int termID = (int) termSpinner.getSelectedItem();
 
-      try{
-        if(inputNotValid()){
-            if( termSpinner.getSelectedItem() == null || termSpinner.getSelectedItem().toString().isEmpty()) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setMessage("No Term to associate this Course with. Create the Term first to associate a Courses with it.");
-                dialog.setTitle("No Terms Created Yet!");
-                dialog.show();}
-            else{
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setMessage("To save this Course, all fields must be filled out.");
-                dialog.setTitle("Uh-Oh!");
-                dialog.show();
-            }
 
-        }else {
+        try {
+            if (inputNotValid()) {
+                if (termSpinner.getSelectedItem() == null) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setMessage("No Term to associate this Course with. Create the Term first to associate a Courses with it.");
+                    dialog.setTitle("No Terms Created Yet!");
+                    dialog.show();
+                } else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setMessage("To save this Course, all fields must be filled out.");
+                    dialog.setTitle("Uh-Oh!");
+                    dialog.show();
+                }
 
-            if (courseID == -1) {
-               // int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
-                course = new Course(0, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
-                        new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                        instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
-                repo.insert(course);
+            } else {
+                String status = courseStatusSpinner.getSelectedItem().toString();
+                int termID = (int) termSpinner.getSelectedItem();
 
-                Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
-                toast.show();
+                if (courseID == -1) {
+                    // int newID = repo.getAllCourses().get(repo.getAllCourses().size() - 1).getCourseID() + 1;
+                    course = new Course(0, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
+                            new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
+                            instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
+                    repo.insert(course);
 
-                if(termID > 0) {
+                    Toast toast = Toast.makeText(this, "New Course Added", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    if (termID > 0) {
+                        Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                        intent.putExtra("id", termID);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
+                            new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
+                            instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
+                    repo.update(course);
+
+                    Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
+                    toast.show();
+
                     Intent intent = new Intent(CourseDetails.this, TermDetails.class);
                     intent.putExtra("id", termID);
                     startActivity(intent);
                 }
-                else{
-                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
-                    startActivity(intent);
-                }
             }
-            else {
-                course = new Course(courseID, courseTitle.getText().toString(), new Date(courseStart.getText().toString()),
-                        new Date(courseEnd.getText().toString()), status, instructorName.getText().toString(),
-                        instructorPhone.getText().toString(), instructorEmail.getText().toString(), courseNotes.getText().toString(), termID);
-                repo.update(course);
-
-                Toast toast = Toast.makeText(this, "Course Updated", Toast.LENGTH_LONG);
-                toast.show();
-
-                Intent intent = new Intent(CourseDetails.this, TermDetails.class);
-                intent.putExtra("id", termID);
-                startActivity(intent);
-                }
-            }
-        }
-        catch (Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

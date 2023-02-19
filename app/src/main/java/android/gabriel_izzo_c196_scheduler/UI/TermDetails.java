@@ -234,42 +234,51 @@ public class TermDetails extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    private boolean inputNotValid() {
+        return termTitle.getText().toString().isEmpty() ||
+                termStart.getText().toString().isEmpty() ||
+                termEnd.getText().toString().isEmpty();
+    }
 
     public void saveTerm(View view) {
         Term term;
 
         try {
-            if (termID == -1) {
-                int newID=1;
-                if (repo.getAllTerms().size()!=0)
-                    newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
-                term = new Term(newID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
-                repo.insert(term);
-
-                Toast toast = Toast.makeText(this, "New Term Added", Toast.LENGTH_LONG);
-                toast.show();
-
-                Intent intent=new Intent(TermDetails.this, TermList.class);
-                startActivity(intent);
-
-
+            if (inputNotValid()) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("To save this Term, all fields must be filled out.");
+                dialog.setTitle("Uh-Oh!");
+                dialog.show();
             } else {
-                term = new Term(termID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
-                repo.update(term);
+                if (termID == -1) {
+                    int newID = 1;
+                    if (repo.getAllTerms().size() != 0)
+                        newID = repo.getAllTerms().get(repo.getAllTerms().size() - 1).getTermID() + 1;
+                    term = new Term(newID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
+                    repo.insert(term);
 
-                Toast toast = Toast.makeText(this, "Term Updated", Toast.LENGTH_LONG);
-                toast.show();
+                    Toast toast = Toast.makeText(this, "New Term Added", Toast.LENGTH_LONG);
+                    toast.show();
 
-                Intent intent=new Intent(TermDetails.this, TermList.class);
-                startActivity(intent);
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    startActivity(intent);
 
+
+                } else {
+                    term = new Term(termID, termTitle.getText().toString(), new Date(termStart.getText().toString()), new Date(termEnd.getText().toString()));
+                    repo.update(term);
+
+                    Toast toast = Toast.makeText(this, "Term Updated", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    startActivity(intent);
+                }
             }
 
-        }
-        catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     public void deleteTerm(MenuItem item) {
